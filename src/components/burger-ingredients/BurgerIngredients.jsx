@@ -5,7 +5,6 @@ import {Counter} from '@ya.praktikum/react-developer-burger-ui-components';
 import ingredientsStyles from './burger-ingredients.module.css';
 import PropTypes from "prop-types";
 import types from "../../utils/types";
-import BurgerConstructor from "../burger-constructor/BurgerConstructor";
 
 class BurgerIngredients extends Component {
 
