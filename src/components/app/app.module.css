@@ -17,15 +17,8 @@
     flex-wrap: wrap;
 }
 
-.wrapper.align-center {
+.wrapper.alignCenter {
     align-items: center;
-}
-
-.constructor-element {
-    max-width: 536px;
-    margin-top: 8px;
-    margin-bottom: 8px;
-    background-color: #1C1C21;
 }
 
 ::-webkit-scrollbar {

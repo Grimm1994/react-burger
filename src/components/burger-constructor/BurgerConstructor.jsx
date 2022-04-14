@@ -6,6 +6,7 @@ import {Button} from '@ya.praktikum/react-developer-burger-ui-components';
 import constructorStyles from './burger-constructor.module.css';
 import img from '../../images/bun-02.png';
 import PropTypes from 'prop-types';
+import types from "../../utils/types";
 
 class BurgerConstructor extends Component {
     render() {
@@ -20,6 +21,7 @@ class BurgerConstructor extends Component {
                 />
                 <div className={constructorStyles.wrapperInner}>
                     {this.props.data.map(item =>
+                        item.type !== 'bun' &&
                         <div className={constructorStyles.item} key={item._id}>
                             <DragIcon type="primary" />
                             <ConstructorElement
@@ -33,7 +35,7 @@ class BurgerConstructor extends Component {
                 <ConstructorElement
                     type="bottom"
                     isLocked={true}
-                    text="Краторная булка N-200i (верх)"
+                    text="Краторная булка N-200i (низ)"
                     price={200}
                     thumbnail={img}
                 />
@@ -52,21 +54,8 @@ class BurgerConstructor extends Component {
     }
 }
 
-const burgerConstructorPropTypes = PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    proteins: PropTypes.number,
-    fat: PropTypes.number,
-    carbohydrates: PropTypes.number,
-    calories: PropTypes.number,
-    price: PropTypes.number.isRequired,
-    image: PropTypes.string,
-    image_mobile: PropTypes.string,
-    image_large: PropTypes.string,
-    __v: PropTypes.number,
-});
-
-BurgerConstructor.propTypes = burgerConstructorPropTypes.isRequired;
+BurgerConstructor.propTypes = {
+    data: PropTypes.arrayOf(types.isRequired)
+}
 
 export default BurgerConstructor;

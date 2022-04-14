@@ -3,7 +3,8 @@ import {Logo} from '@ya.praktikum/react-developer-burger-ui-components';
 import {BurgerIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import {ListIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import {ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import headerStyles from './app-header.module.css'
+import headerStyles from './app-header.module.css';
+import styles from '../app/app.module.css';
 
 class AppHeader extends Component {
     fontRegular = 'text_type_main-default';
@@ -11,7 +12,7 @@ class AppHeader extends Component {
     render() {
         return (
             <header className={headerStyles.header}>
-                <div className="wrapper align-center">
+                <div className={`${styles.wrapper} ${styles.alignCenter}`}>
                     <div className={headerStyles.wrapperInner}>
                         <nav>
                             <ul className={headerStyles.menu}>
