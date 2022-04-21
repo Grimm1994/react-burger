@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState} from "react";
 import AppHeader from "../app-header/AppHeader";
-import '../../index.css'
+import "../../index.css";
 import BurgerIngredients from "../burger-ingredients/BurgerIngredients";
 import BurgerConstructor from "../burger-constructor/BurgerConstructor";
-import styles from './app.module.css';
-import api from "../../utils/api";
+import styles from "./app.module.css";
+import {url} from "../../utils/api";
 
 function App() {
     const [ingredients, setIngredients] = useState([]);
@@ -18,7 +18,7 @@ function App() {
         setIsLoading(true);
 
         try {
-            const response = await api.getIngredients();
+            const response = await fetch(url);
 
             if (response.ok) {
                 const result = await response.json();
@@ -42,8 +42,8 @@ function App() {
         if (ingredients.length > 0) {
             return (
                 <>
-                    <BurgerIngredients data={ingredients}/>
-                    <BurgerConstructor data={ingredients}/>
+                    <BurgerIngredients items={ingredients}/>
+                    <BurgerConstructor items={ingredients}/>
                 </>
             )
         } else {

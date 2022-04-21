@@ -2,17 +2,24 @@
     background: #1C1C21;
 }
 
+.wrapper {
+    position: relative;
+    max-width: 1240px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.wrapper.alignCenter {
+    align-items: center;
+}
+
 .header a {
     color: #8585AD;
     text-decoration: none;
-}
-
-.menu {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    display: flex;
-    align-items: center;
 }
 
 .item {
@@ -21,7 +28,7 @@
 }
 
 .item.active,
-.item:hover{
+.item:hover {
     color: #F2F2F3;
 }
 
@@ -41,4 +48,10 @@
 
 .profile {
     composes: item;
+}
+
+@media screen and (max-width: 767px){
+    .logo {
+        display: none;
+    }
 }

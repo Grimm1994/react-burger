@@ -3,7 +3,7 @@ import styles from "../burger-ingredient-card/burger-ingredient-card.module.css"
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/Modal";
 import IngredientDetails from "../ingredient-details/IngredientDetails";
-import types from "../../utils/types";
+import ingredientsTypes from "../../utils/types";
 
 const BurgerIngredientCard = ({ item }) => {
     const [isModal, setModal] = useState(false)
@@ -35,7 +35,7 @@ const BurgerIngredientCard = ({ item }) => {
 };
 
 BurgerIngredientCard.propTypes = {
-    item: types.isRequired,
+    item: ingredientsTypes.isRequired,
 };
 
 export default BurgerIngredientCard;

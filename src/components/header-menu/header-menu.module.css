@@ -1,0 +1,21 @@
+.menu {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+.item {
+    display: flex;
+    transition: color .3s;
+}
+
+.item.active,
+.item:hover{
+    color: #F2F2F3;
+}
+
+.item span {
+    margin-left: 8px;
+}
