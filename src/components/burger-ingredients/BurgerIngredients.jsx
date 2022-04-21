@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, Fragment, useRef, createRef} from 'react';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css';
 import PropTypes from "prop-types";
@@ -7,43 +7,55 @@ import BurgerIngredientCard from "../burger-ingredient-card/BurgerIngredientCard
 
 
 const BurgerIngredients = ({ data }) => {
+    const [activeTab, setActiveTab] = useState("bun");
+
+    const anchors = ["bun", "sauce", "main",]
+
+    const refs = useRef([]);
+    refs.current = anchors.map((element, i) => refs.current[i] ?? createRef());
+
+    const tabs = {
+        "bun": "Булки",
+        "sauce": "Соусы",
+        "main": "Начинки",
+    }
+
+    function handleBackClick(type, ref) {
+        setActiveTab(type);
+        ref.current.scrollIntoView({ behavior: 'smooth' })
+    }
+
+    const renderTabs = (tabs) => {
+        return Object.keys(tabs).map((type, index) => (
+            <Tab key={index} value={type} active={type === activeTab} onClick={() => handleBackClick(type, refs.current[index])}>
+                {tabs[type]}
+            </Tab>
+        ))
+    }
+
+    const renderIngredients = (tabs, data) => {
+        return Object.keys(tabs).map((type, index) => (
+            <Fragment key={index}>
+                <h2 className="text text_type_main-medium mb-6" ref={refs.current[index]}>{tabs[type]}</h2>
+                <div className={`${styles.wrapperInner}`}>
+                    {
+                        data.filter((item) => item.type === type).map((item) => (
+                            <BurgerIngredientCard key={item._id} item={item}/>
+                        ))
+                    }
+                </div>
+            </Fragment>
+        ))
+    }
 
     return (
         <div>
             <h1 className="text text_type_main-large mb-5">Соберите бургер</h1>
             <div className={`${styles.tabs} mb-10`}>
-                <Tab value="Булки" active>
-                    Булки
-                </Tab>
-                <Tab value="Соусы">
-                    Соусы
-                </Tab>
-                <Tab value="Начинки">
-                    Начинки
-                </Tab>
+                {renderTabs(tabs)}
             </div>
             <div className={styles.wrapper}>
-                <h2 className="text text_type_main-medium mb-6">Булки</h2>
-                <div className={`${styles.wrapperInner}`}>
-                    {data.map(item =>
-                        item.type === 'bun' &&
-                        <BurgerIngredientCard key={item._id} item={item}/>
-                    )}
-                </div>
-                <h2 className="text text_type_main-medium mb-6">Соусы</h2>
-                <div className={`${styles.wrapperInner}`}>
-                    {data.map(item =>
-                        item.type === 'sauce' &&
-                        <BurgerIngredientCard key={item._id} item={item}/>
-                    )}
-                </div>
-                <h2 className="text text_type_main-medium mb-6">Начинки</h2>
-                <div className={`${styles.wrapperInner}`}>
-                    {data.map(item =>
-                        item.type === 'main' &&
-                        <BurgerIngredientCard key={item._id} item={item}/>
-                    )}
-                </div>
+                {renderIngredients(tabs, data)}
             </div>
         </div>
     );

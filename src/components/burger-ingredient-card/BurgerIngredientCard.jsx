@@ -8,13 +8,11 @@ import types from "../../utils/types";
 const BurgerIngredientCard = ({ item }) => {
     const [isModal, setModal] = useState(false)
 
-    const renderModal = (item) => {
-        return (
-            <Modal onClose={() => setModal(false)} title="Детали ингредиента">
-                <IngredientDetails item={item}/>
-            </Modal>
-        )
-    }
+    const renderModal = (item) => (
+        <Modal onClose={() => setModal(false)} title="Детали ингредиента">
+            <IngredientDetails item={item}/>
+        </Modal>
+    )
 
     return (
         <>
