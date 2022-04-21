@@ -9,17 +9,17 @@ import {createPortal} from "react-dom";
 const Modal = ({ title, onClose, children }) => {
 
     useEffect(() => {
+        const closeOnEsc = (e) => {
+            if (e.key === 'Escape') {
+                onClose();
+            }
+        };
+
         window.addEventListener('keydown', closeOnEsc);
         return () => {
             window.removeEventListener('keydown', closeOnEsc);
         }
     }, [onClose]);
-
-    const closeOnEsc = (e) => {
-        if (e.key === 'Escape') {
-            onClose();
-        }
-    };
 
     return createPortal(
         (
