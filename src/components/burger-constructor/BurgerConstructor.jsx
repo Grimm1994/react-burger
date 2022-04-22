@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {DragIcon, CurrencyIcon, ConstructorElement, Button} from '@ya.praktikum/react-developer-burger-ui-components';
-import "./burger-constructor.css"
 import styles from './burger-constructor.module.css';
 import img from '../../images/bun-02.png';
 import PropTypes from 'prop-types';

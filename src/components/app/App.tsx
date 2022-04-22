@@ -4,7 +4,7 @@ import "../../index.css";
 import BurgerIngredients from "../burger-ingredients/BurgerIngredients";
 import BurgerConstructor from "../burger-constructor/BurgerConstructor";
 import styles from "./app.module.css";
-import {URL} from "../../utils/api";
+import API from "../../utils/api";
 
 function App() {
     const [ingredients, setIngredients] = useState([]);
@@ -18,7 +18,7 @@ function App() {
         setIsLoading(true);
 
         try {
-            const response = await fetch(`${URL}/ingredients`);
+            const response = await API.getIngredients();
 
             if (response.ok) {
                 const result = await response.json();

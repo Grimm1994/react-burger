@@ -32,3 +32,10 @@
     display: flex;
     align-items: center;
 }
+
+.wrapper :global(.constructor-element) {
+    max-width: 536px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    background-color: #1C1C21;
+}
