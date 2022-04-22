@@ -6,7 +6,7 @@ import ingredientsTypes from "../../utils/types";
 import BurgerIngredientCard from "../burger-ingredient-card/BurgerIngredientCard";
 
 
-const BurgerIngredients = ({ items }) => {
+const BurgerIngredients = ({ ingredients }) => {
     const [activeTab, setActiveTab] = useState("bun");
 
     const anchors = ["bun", "sauce", "main",]
@@ -33,13 +33,13 @@ const BurgerIngredients = ({ items }) => {
         ))
     }
 
-    const renderIngredients = (tabs, items) => {
+    const renderIngredients = (tabs, ingredients) => {
         return Object.keys(tabs).map((type, index) => (
             <Fragment key={index}>
                 <h2 className="text text_type_main-medium mb-6" ref={refs.current[index]}>{tabs[type]}</h2>
                 <div className={`${styles.wrapperInner}`}>
                     {
-                        items.filter((item) => item.type === type).map((item) => (
+                        ingredients.filter((item) => item.type === type).map((item) => (
                             <BurgerIngredientCard key={item._id} item={item}/>
                         ))
                     }
@@ -55,7 +55,7 @@ const BurgerIngredients = ({ items }) => {
                 {renderTabs(tabs)}
             </div>
             <div className={styles.wrapper}>
-                {renderIngredients(tabs, items)}
+                {renderIngredients(tabs, ingredients)}
             </div>
         </div>
     );
@@ -63,7 +63,7 @@ const BurgerIngredients = ({ items }) => {
 
 
 BurgerIngredients.propTypes = {
-    items: PropTypes.arrayOf(ingredientsTypes.isRequired)
+    ingredients: PropTypes.arrayOf(ingredientsTypes.isRequired)
 }
 
 export default BurgerIngredients;

@@ -9,7 +9,7 @@ import Modal from "../modal/Modal";
 import OrderDetails from "../order-details/OrderDetails";
 
 
-const BurgerConstructor = ({ items }) => {
+const BurgerConstructor = ({ ingredients }) => {
     const [isModal, setModal] = useState(false)
 
     const renderModal = () => {
@@ -30,7 +30,7 @@ const BurgerConstructor = ({ items }) => {
                 thumbnail={img}
             />
             <div className={styles.wrapperInner}>
-                {items.map(item =>
+                {ingredients.map(item =>
                     item.type !== 'bun' &&
                     <div className={styles.item} key={item._id}>
                         <DragIcon type="primary" />
@@ -66,7 +66,7 @@ const BurgerConstructor = ({ items }) => {
 
 
 BurgerConstructor.propTypes = {
-    items: PropTypes.arrayOf(ingredientsTypes.isRequired)
+    ingredients: PropTypes.arrayOf(ingredientsTypes.isRequired)
 }
 
 export default BurgerConstructor;

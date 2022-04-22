@@ -4,7 +4,7 @@ import "../../index.css";
 import BurgerIngredients from "../burger-ingredients/BurgerIngredients";
 import BurgerConstructor from "../burger-constructor/BurgerConstructor";
 import styles from "./app.module.css";
-import {url} from "../../utils/api";
+import {URL} from "../../utils/api";
 
 function App() {
     const [ingredients, setIngredients] = useState([]);
@@ -18,7 +18,7 @@ function App() {
         setIsLoading(true);
 
         try {
-            const response = await fetch(url);
+            const response = await fetch(`${URL}/ingredients`);
 
             if (response.ok) {
                 const result = await response.json();
@@ -42,8 +42,8 @@ function App() {
         if (ingredients.length > 0) {
             return (
                 <>
-                    <BurgerIngredients items={ingredients}/>
-                    <BurgerConstructor items={ingredients}/>
+                    <BurgerIngredients ingredients={ingredients}/>
+                    <BurgerConstructor ingredients={ingredients}/>
                 </>
             )
         } else {
