@@ -8,7 +8,7 @@
 }
 
 .wrapperInner {
-    max-height: calc(100vh - 473px);
+    max-height: 464px;
     max-width: 600px;
     overflow-y: auto;
     overflow-x: hidden;

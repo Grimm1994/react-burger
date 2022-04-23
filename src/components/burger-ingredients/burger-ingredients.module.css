@@ -7,7 +7,7 @@
 
 .wrapper {
     max-width: 600px;
-    max-height: calc(100vh - 337px);
+    max-height: 600px;
     overflow-y: auto;
 }
 
