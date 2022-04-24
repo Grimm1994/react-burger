@@ -1,0 +1,34 @@
+.card {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    max-width: 520px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.img {
+    display: block;
+    width: 100%;
+    max-width: 480px;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.text span {
+    margin-top: 8px;
+}

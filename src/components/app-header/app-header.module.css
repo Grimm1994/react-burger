@@ -1,0 +1,57 @@
+.header {
+    background: #1C1C21;
+}
+
+.wrapper {
+    position: relative;
+    max-width: 1240px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.wrapper.alignCenter {
+    align-items: center;
+}
+
+.header a {
+    color: #8585AD;
+    text-decoration: none;
+}
+
+.item {
+    display: flex;
+    transition: color .3s;
+}
+
+.item.active,
+.item:hover {
+    color: #F2F2F3;
+}
+
+.item span {
+    margin-left: 8px;
+}
+
+.wrapperInner {
+    display: flex;
+    align-items: center;
+    margin: 0 -20px;
+}
+
+.logo {
+    margin-left: 130px;
+}
+
+.profile {
+    composes: item;
+}
+
+@media screen and (max-width: 767px){
+    .logo {
+        display: none;
+    }
+}
