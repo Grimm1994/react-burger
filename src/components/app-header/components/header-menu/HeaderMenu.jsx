@@ -14,7 +14,7 @@ const HeaderMenu = () => {
                 </li>
                 <li className="text_type_main-default pt-4 pb-4 pr-5 pl-5">
                     <a href="#" className={styles.item}>
-                        <ListIcon type="primary"/>
+                        <ListIcon type="secondary"/>
                         <span>Лента заказов</span>
                     </a>
                 </li>

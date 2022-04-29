@@ -1,22 +1,22 @@
 import React, {useState} from 'react';
-import styles from "../burger-ingredient-card/burger-ingredient-card.module.css";
+import styles from "./burger-ingredient-card.module.css";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import Modal from "../modal/Modal";
-import IngredientDetails from "../ingredient-details/IngredientDetails";
-import ingredientsTypes from "../../utils/types";
+import Modal from "../../../modal/Modal";
+import IngredientDetails from "../../../ingredient-details/IngredientDetails";
+import ingredientsTypes from "../../../../utils/types";
 
 const BurgerIngredientCard = ({ item }) => {
-    const [isModal, setModal] = useState(false)
+    const [isModal, setIsModal] = useState(false)
 
     const renderModal = (item) => (
-        <Modal onClose={() => setModal(false)} title="Детали ингредиента">
+        <Modal onClose={() => setIsModal(false)} title="Детали ингредиента">
             <IngredientDetails item={item}/>
         </Modal>
     )
 
     return (
         <>
-            <div className={`${styles.item} mb-8`} key={item._id} onClick={() => setModal(true)}>
+            <div className={`${styles.item} mb-8`} key={item._id} onClick={() => setIsModal(true)}>
                 <div className={styles.picture}>
                     <img src={item.image} alt={item.name}/>
                     <Counter count={1} size="default"/>
