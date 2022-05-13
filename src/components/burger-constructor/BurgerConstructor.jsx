@@ -40,6 +40,11 @@ const BurgerConstructor = () => {
 
     const sortIngredient = useCallback((dragIndex, hoverIndex) => {
         const sortedIngredients = items.slice();
+        console.log("items");
+        console.log(items);
+        console.log("________________");
+        console.log("sorted items");
+        console.log(sortedIngredients);
         sortedIngredients.splice(dragIndex, 1);
         sortedIngredients.splice(hoverIndex, 0, items[dragIndex]);
 
