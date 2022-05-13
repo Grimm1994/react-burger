@@ -1,13 +1,13 @@
-import React, { createRef, Fragment, useContext, useRef, useState } from 'react';
+import React, { createRef, Fragment, useRef, useState } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css';
 import BurgerIngredientCard from "./components/burger-ingredient-card/BurgerIngredientCard";
-import { AppContext } from "../../services/contexts/AppContext";
+import { useSelector } from "react-redux";
 
 
 const BurgerIngredients = () => {
-    const { state } = useContext(AppContext);
-    const { ingredients } = state;
+    const { items } = useSelector(store => store.ingredients);
+
     const [activeTab, setActiveTab] = useState("bun");
 
     const anchors = ["bun", "sauce", "main",]
@@ -20,29 +20,38 @@ const BurgerIngredients = () => {
         "sauce": "Соусы",
         "main": "Начинки",
     }
+    const handleScroll = (e) => {
+        const offsetTop = e.target.scrollTop + 1;
+        const saucePosY = refs.current[1].current.offsetTop;
+        const mainPosY = refs.current[2].current.offsetTop;
 
-    function handleBackClick(type, ref) {
-        setActiveTab(type);
-        ref.current.scrollIntoView({ behavior: 'smooth' })
+        if (offsetTop <= saucePosY) {
+            setActiveTab('bun')
+        } else if (offsetTop <= mainPosY) {
+            setActiveTab('sauce')
+        } else {
+            setActiveTab('main')
+        }
+
     }
 
     const renderTabs = () => {
         return Object.keys(tabs).map((type, index) => (
-            <Tab key={index} value={type} active={type === activeTab}
-                 onClick={() => handleBackClick(type, refs.current[index])}>
-                {tabs[type]}
+            <Tab key={ index } value={ type } active={ type === activeTab }
+                 onClick={ () => refs.current[index].current.scrollIntoView({ behavior: 'smooth' }) }>
+                { tabs[type] }
             </Tab>
         ))
     }
 
     const renderIngredients = () => {
         return Object.keys(tabs).map((type, index) => (
-            <Fragment key={index}>
-                <h2 className="text text_type_main-medium mb-6" ref={refs.current[index]}>{tabs[type]}</h2>
-                <div className={`${styles.wrapperInner}`}>
+            <Fragment key={ index }>
+                <h2 className="text text_type_main-medium mb-6" ref={ refs.current[index] }>{ tabs[type] }</h2>
+                <div className={ `${ styles.wrapperInner }` }>
                     {
-                        ingredients?.filter((item) => item.type === type).map((item) => (
-                            <BurgerIngredientCard key={item._id} item={item}/>
+                        items?.filter((item) => item.type === type).map((item) => (
+                            <BurgerIngredientCard key={ item._id } item={ item }/>
                         ))
                     }
                 </div>
@@ -51,13 +60,13 @@ const BurgerIngredients = () => {
     }
 
     return (
-        <div>
-            <h1 className="text text_type_main-large mb-5">Соберите бургер</h1>
-            <div className={`${styles.tabs} mb-10`}>
-                {renderTabs()}
+        <div className={styles.container}>
+            <h1 className={ `text text_type_main-large mb-5 ${styles.title}` }>Соберите бургер</h1>
+            <div className={ `${ styles.tabs } mb-10` }>
+                { renderTabs() }
             </div>
-            <div className={styles.wrapper}>
-                {renderIngredients()}
+            <div className={ styles.wrapper } onScroll={ (e) => handleScroll(e) }>
+                { renderIngredients() }
             </div>
         </div>
     );

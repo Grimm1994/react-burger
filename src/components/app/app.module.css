@@ -2,10 +2,6 @@
     box-sizing: border-box;
 }
 
-.main {
-    margin-bottom: 20px;
-}
-
 .wrapper {
     max-width: 1240px;
     width: 100%;
@@ -14,6 +10,7 @@
     align-items: flex-start;
     justify-content: space-between;
     flex-wrap: wrap;
+    height: calc(100vh - 140px);
 }
 
 .wrapper.alignCenter {

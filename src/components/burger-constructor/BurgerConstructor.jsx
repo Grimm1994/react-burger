@@ -1,134 +1,102 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { Button, ConstructorElement, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import React, { Fragment, useCallback } from 'react';
+import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-constructor.module.css';
-import Modal from "../modal/Modal";
-import OrderDetails from "../order-details/OrderDetails";
-import { AppContext } from "../../services/contexts/AppContext";
-import API from "../../utils/api";
-
+import uuid from "react-uuid";
+import { useDispatch, useSelector } from "react-redux";
+import { addConstructorItem, setBun, sortIngredients } from "../../services/actions/cart";
+import { useDrop } from "react-dnd";
+import ConstructorItem from "./components/constructor-item/ConstructorItem";
+import ConstructorTotal from "./components/constructor-total/ConstructorTotal";
 
 const BurgerConstructor = () => {
-    const { state, dispatch } = useContext(AppContext);
-    const { ingredients } = state;
-
-    const [isModal, setIsModal] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(false);
-
-    const bun = ingredients?.filter(item => item.type === "bun")[0];
-
-    const createOrder = async () => {
-        setIsLoading(true);
-
-        const toppingIds = ingredients?.map(item => item._id);
-
-        const orderData = [
-            bun._id,
-            ...toppingIds,
-            bun._id,
-        ]
+    const dispatch = useDispatch();
+    const { items, bun } = useSelector(store => store.cart);
 
 
-        await API.createOrder("/orders", orderData).then(response => {
-            if (response.success) {
-                dispatch({ type: "setOrderNumber", payload: response.order.number })
+    const moveItem = (item) => {
+        if (item.type !== "bun") {
+            if (!bun.name) {
+                alert('Сначала выберите булку');
             } else {
-                setError(true);
+                dispatch(addConstructorItem({
+                    ...item,
+                    uuid: uuid()
+                }));
             }
-        }).catch(err => {
-            console.log(err);
-            setError(true);
-        })
-
-        setIsModal(true);
-        setIsLoading(false);
+        } else {
+            dispatch(setBun(item))
+        }
     }
 
-    const getSum = useCallback(() => {
-        const bunSum = bun.price * 2;
+    const [{ opacity }, dropTarget] = useDrop({
+        accept: "items",
+        collect: monitor => ({
+            opacity: monitor.isOver() ? "0.5" : "1"
+        }),
+        drop(itemId) {
+            moveItem(itemId)
+        }
+    })
 
-        const ingredientsSum = ingredients?.filter(item => item.type !== "bun")
-            .reduce((acc, current) => acc += current.price, 0)
+    const sortIngredient = useCallback((dragIndex, hoverIndex) => {
+        const sortedIngredients = items.slice();
+        sortedIngredients.splice(dragIndex, 1);
+        sortedIngredients.splice(hoverIndex, 0, items[dragIndex]);
 
-        return bunSum + ingredientsSum;
-    }, [ingredients, bun])
+        dispatch(sortIngredients(sortedIngredients))
+    }, [items, dispatch])
 
-    useEffect(() => {
-        dispatch({ type: "setTotalSum", payload: getSum() })
-    }, [ingredients, dispatch, getSum])
-
-    const renderDetails = () => {
-        if (error) {
+    const renderConstructor = () => {
+        if (items.length < 1 && !bun.name) {
             return (
-                <>Что-то пошло не так...</>
+                <div className={ styles.emptyWrapper }>
+                    <h3 className="text text_type_main-large text_color_inactive">Перетащите ингредиенты</h3>
+                    <p className="text text_type_main-default text_color_inactive mt-5">(Начните с выбора булки)</p>
+                </div>
             )
         }
-
-        if (isLoading) {
-            return (
-                <>Загрузка...</>
-            )
-        }
-
-        return <OrderDetails/>
-    }
-
-    const renderModal = () => {
 
         return (
-            <Modal onClose={() => setIsModal(false)}>
-                {renderDetails()}
-            </Modal>
+            <div className={ `${ styles.wrapper } pl-4 pr-4` }>
+                { bun.name &&
+                    <ConstructorElement
+                        type="top"
+                        isLocked={ true }
+                        text={ `${ bun.name } (верх)` }
+                        price={ bun.price }
+                        thumbnail={ bun.image }
+                    />
+                }
+
+                <div className={ styles.wrapperInner }>
+                    { items.map((item, index) =>
+                        <Fragment key={ item.uuid }>
+                            <ConstructorItem
+                                index={index}
+                                item={item}
+                                sortIngredient={sortIngredient}
+                            />
+                        </Fragment>
+                    ) }
+                </div>
+                { bun.name &&
+                    <ConstructorElement
+                        type="bottom"
+                        isLocked={ true }
+                        text={ `${ bun.name } (низ)` }
+                        price={ bun.price }
+                        thumbnail={ bun.image }
+                    />
+                }
+
+                <ConstructorTotal bun={bun} items={items} />
+            </div>
         )
-
-
     }
 
     return (
-        <div className={`${styles.wrapper} pl-4 pr-4`}>
-            {bun &&
-                <ConstructorElement
-                    type="top"
-                    isLocked={true}
-                    text={`${bun.name} (верх)`}
-                    price={bun.price}
-                    thumbnail={bun.image}
-                />
-            }
-
-            <div className={styles.wrapperInner}>
-                {ingredients.map(item =>
-                    item.type !== 'bun' &&
-                    <div className={styles.item} key={item._id}>
-                        <DragIcon type="primary"/>
-                        <ConstructorElement
-                            text={item.name}
-                            price={item.price}
-                            thumbnail={item.image}
-                        />
-                    </div>
-                )}
-            </div>
-            {bun &&
-                <ConstructorElement
-                    type="bottom"
-                    isLocked={true}
-                    text={`${bun.name} (низ)`}
-                    price={bun.price}
-                    thumbnail={bun.image}
-                />
-            }
-
-            <div className={styles.btnBlock}>
-                <div className="mr-10">
-                    <span className="text text_type_digits-medium mr-2">{state.totalSum}</span>
-                    <CurrencyIcon type="primary"/>
-                </div>
-                <Button type="primary" size="large" onClick={() => createOrder()}>
-                    Оформить заказ
-                </Button>
-            </div>
-            {isModal && renderModal()}
+        <div className={styles.constructor} ref={ dropTarget } style={ { opacity }}>
+            { renderConstructor() }
         </div>
     );
 };

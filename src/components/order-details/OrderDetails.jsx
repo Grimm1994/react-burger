@@ -1,14 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import styles from './order-details.module.css';
-import { AppContext } from "../../services/contexts/AppContext";
+import { useSelector } from "react-redux";
 
 const OrderDetails = () => {
-    const { state } = useContext(AppContext);
+    const { order } = useSelector(store => store.order);
 
     return (
         <div className={`${styles.card} pt-20 pb-20`}>
-            <h3 className={`${styles.order} text text_type_digits-large mb-8`}>{state.order?.number}</h3>
+            <h3 className={`${styles.order} text text_type_digits-large mb-8`}>{order?.number}</h3>
             <p className="text text_type_main-medium mb-15">идентификатор заказа</p>
             <div className={`${styles.iconBg} mb-15`}>
                 <div className={styles.icon}>
