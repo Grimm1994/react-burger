@@ -1,14 +1,27 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.title {
+    flex-grow: 0;
+}
+
 .tabs{
     display: flex;
+    flex-grow: 0;
 }
+
 .tabs * {
     width: 100%;
 }
 
 .wrapper {
+    flex-grow: 1;
     max-width: 600px;
-    max-height: 600px;
     overflow-y: auto;
+    position: relative;
 }
 
 .wrapperInner {

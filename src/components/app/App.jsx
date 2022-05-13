@@ -1,64 +1,35 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect } from "react";
 import AppHeader from "../app-header/AppHeader";
 import "../../index.css";
 import BurgerIngredients from "../burger-ingredients/BurgerIngredients";
 import BurgerConstructor from "../burger-constructor/BurgerConstructor";
 import styles from "./app.module.css";
-import API from "../../utils/api";
-import { AppContext } from "../../services/contexts/AppContext";
-import { appReducer } from "../../services/reducers/AppReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { getIngredients } from "../../services/actions/ingredients";
 
-
-const initialState = {
-    ingredients: [],
-    totalSum: null,
-    order: {
-        number: null,
-    }
-}
 
 const App = () => {
-    const [state, dispatch] = useReducer(appReducer, initialState, undefined);
+    const dispatch = useDispatch();
+    const { items, itemsRequest, itemsFailed } = useSelector(store => store.ingredients);
 
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(false);
-
-    const getIngredients = async () => {
-        setIsLoading(true);
-
-        await API.getIngredients("/ingredients").then(response => {
-            const { success, data } = response;
-
-            if (success && data) {
-                dispatch({ type: "setIngredients", payload: response.data });
-            } else {
-                setError(true)
-            }
-        }).catch(err => {
-            console.log(err);
-            setError(true)
-        })
-
-        setIsLoading(false);
-    }
 
     useEffect(() => {
-        getIngredients()
-    }, [])
+        if (!items.length) dispatch(getIngredients());
+    }, [dispatch, items])
 
     const render = () => {
-        if (error) {
+        if (itemsFailed) {
             return (
                 <>Что-то пошло не так...</>
             )
         }
 
-        if (isLoading) {
+        if (itemsRequest) {
             return (
                 <>Загрузка...</>
             )
         }
-        if (state.ingredients.length > 0) {
+        if (items.length > 0) {
             return (
                 <>
                     <BurgerIngredients/>
@@ -73,14 +44,12 @@ const App = () => {
     }
 
     return (
-        <AppContext.Provider value={{ state, dispatch }}>
+        <>
             <AppHeader/>
-            <main className={styles.main}>
-                <section className={styles.wrapper}>
-                    {render()}
-                </section>
-            </main>
-        </AppContext.Provider>
+            <section className={ styles.wrapper }>
+                { render() }
+            </section>
+        </>
     );
 }
 

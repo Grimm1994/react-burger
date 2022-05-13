@@ -15,7 +15,7 @@ const AppHeader = () => {
                         <Logo/>
                     </a>
                 </div>
-                <a href="#" className={`${styles.profile} text_type_main-default pt-4 pb-4 pr-5 pl-5`}>
+                <a href="/" className={`${styles.profile} text_type_main-default pt-4 pb-4 pr-5 pl-5`}>
                     <ProfileIcon type="secondary"/>
                     <span>Личный кабинет</span>
                 </a>

@@ -1,0 +1,18 @@
+.item {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+}
+
+.dragIcon {
+    margin-right: 8px;
+}
+
+.item :global(.constructor-element) {
+    flex-grow: 1;
+    max-width: 536px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    background-color: #1C1C21;
+}
