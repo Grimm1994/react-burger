@@ -59,8 +59,11 @@ const ConstructorTotal = ({ bun, items }) => {
                 <>Загрузка...</>
             )
         }
-
-        return <OrderDetails/>
+        return (
+            <Modal onClose={ () => closeModal() }>
+                <OrderDetails/>
+            </Modal>
+        )
     }
 
     const closeModal = () => {
@@ -71,11 +74,7 @@ const ConstructorTotal = ({ bun, items }) => {
 
     const renderModal = () => {
 
-        return (
-            <Modal onClose={ () => closeModal() }>
-                { renderDetails() }
-            </Modal>
-        )
+        return renderDetails()
     }
 
     return (
