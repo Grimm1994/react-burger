@@ -3,7 +3,7 @@ import styles from "./constructor-total.module.css";
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../../../modal/Modal";
 import OrderDetails from "../../../order-details/OrderDetails";
-import { setTotalSum } from "../../../../services/actions/cart";
+import { clearConstructor, setTotalSum } from "../../../../services/actions/cart";
 import { createOrder } from "../../../../services/actions/order";
 import { useDispatch, useSelector } from "react-redux";
 import ingredientsTypes from "../../../../utils/types";
@@ -63,10 +63,16 @@ const ConstructorTotal = ({ bun, items }) => {
         return <OrderDetails/>
     }
 
+    const closeModal = () => {
+        setIsModal(false);
+
+        dispatch(clearConstructor());
+    }
+
     const renderModal = () => {
 
         return (
-            <Modal onClose={ () => setIsModal(false) }>
+            <Modal onClose={ () => closeModal() }>
                 { renderDetails() }
             </Modal>
         )

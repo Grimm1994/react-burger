@@ -3,7 +3,7 @@ import {
     ADD_CONSTRUCTOR_ITEM,
     DELETE_CONSTRUCTOR_ITEM,
     SET_BUN,
-    SORT_INGREDIENTS
+    SORT_INGREDIENTS, CLEAR_CONSTRUCTOR
 } from "../actions/cart";
 
 
@@ -15,6 +15,10 @@ const initialState = {
 
 export const cartReducer = (state = initialState, action) => {
     switch (action.type) {
+
+        case CLEAR_CONSTRUCTOR: {
+            return initialState
+        }
 
         case SORT_INGREDIENTS: {
             return {

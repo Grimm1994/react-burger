@@ -7,6 +7,8 @@ export const SET_BUN = "SET_BUN";
 
 export const SORT_INGREDIENTS = "SORT_INGREDIENTS";
 
+export const CLEAR_CONSTRUCTOR = "CLEAR_CONSTRUCTOR";
+
 
 export const setTotalSum = (sum) => {
     return {
@@ -41,5 +43,11 @@ export const sortIngredients = (items) => {
     return {
         type: SORT_INGREDIENTS,
         items
+    }
+}
+
+export const clearConstructor = () => {
+    return {
+        type: CLEAR_CONSTRUCTOR,
     }
 }
