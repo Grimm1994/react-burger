@@ -3,10 +3,14 @@
 }
 
 .wrapper {
-    position: relative;
     max-width: 1240px;
     width: 100%;
     margin: 0 auto;
+}
+
+.wrapperContainer {
+    position: relative;
+    margin: 0 -20px;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
@@ -47,7 +51,6 @@
 .wrapperInner {
     display: flex;
     align-items: center;
-    margin: 0 -20px;
 }
 
 .logo {
