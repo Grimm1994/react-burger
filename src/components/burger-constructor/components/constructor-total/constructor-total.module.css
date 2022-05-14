@@ -3,3 +3,15 @@
     display: flex;
     align-items: center;
 }
+
+.btnInner {
+    display: flex;
+    align-items: center;
+}
+.spinner {
+    margin-right: 10px;
+}
+.spinner svg {
+    width: 24px;
+    height: 24px;
+}
