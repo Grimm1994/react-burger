@@ -8,6 +8,7 @@ import { createOrder } from "../../../../services/actions/order";
 import { useDispatch, useSelector } from "react-redux";
 import ingredientsTypes from "../../../../utils/types";
 import PropTypes from "prop-types";
+import { TailSpin } from "react-loader-spinner";
 
 const ConstructorTotal = ({ bun, items }) => {
     const dispatch = useDispatch();
@@ -33,7 +34,7 @@ const ConstructorTotal = ({ bun, items }) => {
         dispatch(setTotalSum(getSum()))
     }, [dispatch, getSum])
 
-    const getNewOrder = () => {
+    const createNewOrder = () => {
         const toppingIds = items?.map(item => item._id);
 
         const orderData = [
@@ -54,11 +55,6 @@ const ConstructorTotal = ({ bun, items }) => {
             )
         }
 
-        if (orderRequest) {
-            return (
-                <>Загрузка...</>
-            )
-        }
         return (
             <Modal onClose={ () => closeModal() }>
                 <OrderDetails/>
@@ -84,8 +80,11 @@ const ConstructorTotal = ({ bun, items }) => {
                     <span className="text text_type_digits-medium mr-2">{ totalSum }</span>
                     <CurrencyIcon type="primary"/>
                 </div>
-                <Button type="primary" size="large" onClick={ () => getNewOrder() }>
-                    Оформить заказ
+                <Button type="primary" size="large" onClick={ () => createNewOrder() }>
+                    <div className={styles.btnInner}>
+                        { orderRequest && <TailSpin wrapperClass={styles.spinner} color="#fff" /> }
+                        Оформить заказ
+                    </div>
                 </Button>
             </div>
 
