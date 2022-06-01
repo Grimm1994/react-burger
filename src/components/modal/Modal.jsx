@@ -26,7 +26,6 @@ const Modal = ({ title, onClose, children }) => {
             <>
                 <ModalOverlay onClose={onClose} />
                 <div className={`${styles.modal} pt-10 pl-10 pb-15 pr-10`}>
-                    <h3 className={`${styles.title} text text_type_main-large`}>{title}</h3>
                     <div className={styles.close} onClick={onClose}>
                         <CloseIcon type="primary" />
                     </div>
@@ -41,7 +40,6 @@ const Modal = ({ title, onClose, children }) => {
 
 
 Modal.propTypes = {
-    title: PropTypes.string,
     onClose: PropTypes.func.isRequired,
     children: PropTypes.node.isRequired,
 };

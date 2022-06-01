@@ -72,9 +72,9 @@ const BurgerConstructor = () => {
                     { items.map((item, index) =>
                         <Fragment key={ item.uuid }>
                             <ConstructorItem
-                                index={index}
-                                item={item}
-                                sortIngredient={sortIngredient}
+                                index={ index }
+                                item={ item }
+                                sortIngredient={ sortIngredient }
                             />
                         </Fragment>
                     ) }
@@ -89,13 +89,13 @@ const BurgerConstructor = () => {
                     />
                 }
 
-                <ConstructorTotal bun={bun} items={items} />
+                <ConstructorTotal bun={ bun } items={ items }/>
             </div>
         )
     }
 
     return (
-        <div className={styles.constructor} ref={ dropTarget } style={ { opacity }}>
+        <div className={ styles.constructor } ref={ dropTarget } style={ { opacity } }>
             { renderConstructor() }
         </div>
     );

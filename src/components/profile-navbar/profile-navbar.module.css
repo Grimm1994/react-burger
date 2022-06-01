@@ -1,0 +1,24 @@
+.sidebar {
+    max-width: 320px;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar .navLink {
+    cursor: pointer;
+    color: #8585AD;
+    line-height: 64px;
+    text-decoration: none;
+    transition: color .3s;
+    border: none;
+    background: transparent;
+    text-align: left;
+}
+
+.navbar .navLink:hover,
+.navbar .navLink.active {
+    color: #fff;
+}

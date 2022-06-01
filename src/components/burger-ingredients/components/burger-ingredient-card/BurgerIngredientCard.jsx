@@ -7,10 +7,12 @@ import ingredientsTypes from "../../../../utils/types";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentIngredient, unsetCurrentIngredient } from "../../../../services/actions/ingredients";
 import { useDrag } from "react-dnd";
+import { useHistory } from "react-router-dom";
 
 const BurgerIngredientCard = ({ item }) => {
     const [isModal, setIsModal] = useState(false);
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const constructorItems = useSelector(store => [store.cart.bun, store.cart.bun, ...store.cart.items]);
 
@@ -23,6 +25,11 @@ const BurgerIngredientCard = ({ item }) => {
     })
 
     const openModal = () => {
+        history.push({
+            pathname: `/ingredients/${ item._id }`,
+            state: { modal: true }
+        })
+
         setIsModal(true);
         dispatch(setCurrentIngredient(item));
     }
@@ -32,9 +39,9 @@ const BurgerIngredientCard = ({ item }) => {
         dispatch(unsetCurrentIngredient());
     }
 
-    const renderModal = (item) => (
-        <Modal onClose={ () => closeModal() } title="Детали ингредиента">
-            <IngredientDetails item={ item }/>
+    const renderModal = () => (
+        <Modal onClose={ () => closeModal() }>
+            <IngredientDetails/>
         </Modal>
     )
 
@@ -48,7 +55,7 @@ const BurgerIngredientCard = ({ item }) => {
             >
                 <div className={ styles.picture }>
                     <img src={ item.image } alt={ item.name }/>
-                    {count > 0 && <Counter count={ count } size="default"/>}
+                    { count > 0 && <Counter count={ count } size="default"/> }
                 </div>
                 <div className={ styles.price }>
                     <span className="text text_type_digits-default mr-2">{ item.price }</span>
@@ -58,7 +65,7 @@ const BurgerIngredientCard = ({ item }) => {
                     <p className="text text_type_main-default">{ item.name }</p>
                 </div>
             </div>
-            { isModal && renderModal(item) }
+            { isModal && renderModal() }
         </>
     );
 };
