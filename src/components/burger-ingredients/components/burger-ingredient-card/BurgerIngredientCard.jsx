@@ -35,7 +35,7 @@ const BurgerIngredientCard = ({ item }) => {
             <div
                 className={ `${ styles.item } mb-8` }
                 key={ item._id }
-                onClick={ () => openModal() }
+                onClick={ openModal }
                 ref={ ref }
             >
                 <div className={ styles.picture }>
