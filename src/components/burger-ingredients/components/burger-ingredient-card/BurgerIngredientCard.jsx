@@ -1,16 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from "./burger-ingredient-card.module.css";
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import Modal from "../../../modal/Modal";
-import IngredientDetails from "../../../ingredient-details/IngredientDetails";
 import ingredientsTypes from "../../../../utils/types";
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentIngredient, unsetCurrentIngredient } from "../../../../services/actions/ingredients";
+import { setCurrentIngredient } from "../../../../services/actions/ingredients";
 import { useDrag } from "react-dnd";
 import { useHistory } from "react-router-dom";
 
 const BurgerIngredientCard = ({ item }) => {
-    const [isModal, setIsModal] = useState(false);
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -30,20 +27,8 @@ const BurgerIngredientCard = ({ item }) => {
             state: { modal: true }
         })
 
-        setIsModal(true);
         dispatch(setCurrentIngredient(item));
     }
-
-    const closeModal = () => {
-        setIsModal(false);
-        dispatch(unsetCurrentIngredient());
-    }
-
-    const renderModal = () => (
-        <Modal onClose={ () => closeModal() }>
-            <IngredientDetails/>
-        </Modal>
-    )
 
     return (
         <>
@@ -65,7 +50,6 @@ const BurgerIngredientCard = ({ item }) => {
                     <p className="text text_type_main-default">{ item.name }</p>
                 </div>
             </div>
-            { isModal && renderModal() }
         </>
     );
 };
