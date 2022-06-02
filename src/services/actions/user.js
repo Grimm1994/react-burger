@@ -14,39 +14,84 @@ export const LOGOUT = "LOGOUT";
 
 export const SET_LOADING = "SET_LOADING";
 
+const logoutAction = () => {
+    return {
+        type: LOGOUT
+    }
+}
+
+const setLoading = () => {
+    return {
+        type: SET_LOADING
+    }
+}
+
+const getUserSuccess = user => {
+    return {
+        type: GET_USER_SUCCESS,
+        user
+    }
+}
+
+const updateUserSuccess = user => {
+    return {
+        type: UPDATE_USER_SUCCESS,
+        user
+    }
+}
+
+const createUserSuccess = user => {
+    return {
+        type: CREATE_USER_SUCCESS,
+        user
+    }
+}
+
+const createUserFailed = message => {
+    return {
+        type: CREATE_USER_FAILED,
+        message
+    }
+}
+
+const signInFailed = message => {
+    return {
+        type: SIGN_IN_FAILED,
+        message
+    }
+}
+
+const signInSuccess = user => {
+    return {
+        type: SIGN_IN_SUCCESS,
+        user
+    }
+}
 
 export const logout = () => dispatch => {
     API.logout("/auth/logout").then(response => {
         if (response.success) {
-            dispatch({
-                type: LOGOUT
-            })
+            dispatch(logoutAction());
 
             localStorage.removeItem("token");
             localStorage.removeItem("refreshToken");
         }
+    }).catch(err => {
+        console.log(err);
     })
 }
 
 export const getUser = () => async dispatch => {
-    dispatch({
-        type: SET_LOADING,
-    })
+    dispatch(setLoading())
     API.getUser("/auth/user").then(response => {
         if (response.success) {
-            dispatch({
-                type: GET_USER_SUCCESS,
-                user: response.user
-            })
+            dispatch(getUserSuccess(response.user))
         }
     }).catch(async err => {
         await updateToken(err, () => {
             API.getUser("/auth/user").then(response => {
                 if (response.success) {
-                    dispatch({
-                        type: GET_USER_SUCCESS,
-                        user: response.user
-                    })
+                    dispatch(getUserSuccess(response.user))
                 }
             })
         });
@@ -56,19 +101,13 @@ export const getUser = () => async dispatch => {
 export const updateUser = data => async dispatch => {
     API.updateUser("/auth/user", data).then(response => {
         if (response.success) {
-            dispatch({
-                type: UPDATE_USER_SUCCESS,
-                user: response.user
-            })
+            dispatch(updateUserSuccess(response.user));
         }
     }).catch(async err => {
         await updateToken(err, () => {
             API.updateUser("/auth/user", data).then(response => {
                 if (response.success) {
-                    dispatch({
-                        type: UPDATE_USER_SUCCESS,
-                        user: response.user
-                    })
+                    dispatch(updateUserSuccess(response.user));
                 }
             })
         });
@@ -80,38 +119,23 @@ export const createUser = data => dispatch => {
         if (response.success) {
 
             saveTokens(response);
-
-            dispatch({
-                type: CREATE_USER_SUCCESS,
-                user: response.user
-            })
+            dispatch(createUserSuccess(response.user));
         }
     }).catch(async err => {
         const res = await err;
-        dispatch({
-            type: CREATE_USER_FAILED,
-            message: res.message
-        })
+        dispatch(createUserFailed(res.message));
     })
 }
 
 export const signIn = data => dispatch => {
     API.signIn("/auth/login", data).then(response => {
         if (response.success) {
-
             saveTokens(response);
-
-            dispatch({
-                type: SIGN_IN_SUCCESS,
-                user: response.user
-            })
+            dispatch(signInSuccess(response.user));
         }
     }).catch(async err => {
         const res = await err;
-        dispatch({
-            type: SIGN_IN_FAILED,
-            message: res.message
-        })
+        dispatch(signInFailed(res.message));
     })
 }
 
@@ -127,11 +151,13 @@ const updateToken = async (err, callback) => {
 
                 callback();
             }
+        }).catch(err => {
+            console.log(err);
         })
     }
 }
 
-const saveTokens = (response) => {
+const saveTokens = response => {
     let accessToken;
     if (response.accessToken.indexOf("Bearer") === 0) {
         accessToken = response.accessToken.split("Bearer ")[1];

@@ -66,13 +66,14 @@ const ConstructorTotal = ({ bun, items }) => {
         }
 
         return (
-            <Modal onClose={ () => closeModal() }>
+            <Modal onClose={ closeModal }>
                 <OrderDetails/>
             </Modal>
         )
     }
 
-    const closeModal = () => {
+    const closeModal = e => {
+        e.preventDefault();
         setIsModal(false);
 
         dispatch(clearConstructor());

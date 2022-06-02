@@ -4,26 +4,35 @@ export const GET_ORDER_NUMBER_SUCCESS = "GET_ORDER_NUMBER";
 export const GET_ORDER_NUMBER_REQUEST = "GET_ORDER_NUMBER_REQUEST";
 export const GET_ORDER_NUMBER_FAILED = "GET_ORDER_NUMBER_FAILED";
 
-
-export const createOrder = (order) => dispatch => {
-    dispatch({
+const getOrderNumberRequest = () => {
+    return {
         type: GET_ORDER_NUMBER_REQUEST
-    })
+    }
+}
+
+const getOrderNumberFailed = () => {
+    return {
+        type: GET_ORDER_NUMBER_FAILED
+    }
+}
+
+const getOrderNumberSuccess = number => {
+    return {
+        type: GET_ORDER_NUMBER_SUCCESS,
+        number
+    }
+}
+
+export const createOrder = order => dispatch => {
+    dispatch(getOrderNumberRequest())
 
     API.createOrder("/orders", order).then(response => {
         if (response.success) {
-            dispatch({
-                type: GET_ORDER_NUMBER_SUCCESS,
-                number: response.order.number
-            })
+            dispatch(getOrderNumberSuccess(response.order.number));
         } else {
-            dispatch({
-                type: GET_ORDER_NUMBER_FAILED
-            })
+            dispatch(getOrderNumberFailed());
         }
     }).catch(err => {
-        dispatch({
-            type: GET_ORDER_NUMBER_FAILED
-        })
+        dispatch(getOrderNumberFailed());
     })
 }

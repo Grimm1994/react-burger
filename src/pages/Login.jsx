@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import styles from "./index.module.css";
 import { Button, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, useHistory } from "react-router-dom";
+import { Link, Redirect, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "../services/actions/user";
 import { useAuth } from "../services/hooks/auth";
@@ -9,9 +9,10 @@ import { useAuth } from "../services/hooks/auth";
 const Login = () => {
     const [form, setValue] = useState({ email: "", password: "" });
     const { loginErrorMessage } = useSelector(store => store.user);
-    const history = useHistory();
     const dispatch = useDispatch();
     const { isAuth } = useAuth();
+    const location = useLocation();
+    const { state } = location;
 
     const onChange = e => {
         setValue({
@@ -20,15 +21,20 @@ const Login = () => {
         })
     }
 
-    const auth = e => {
+    const auth = useCallback(e => {
         e.preventDefault();
 
         dispatch(signIn(form))
-    }
+    }, [dispatch, form])
 
-    useEffect(() => {
-        isAuth() && history.push("/");
-    }, [isAuth, history])
+
+    if (isAuth()) {
+        return (
+            <Redirect
+                to={ state?.from || '/' }
+            />
+        );
+    }
 
     return (
         <div className={ styles.wrapper }>

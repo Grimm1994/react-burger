@@ -1,17 +1,26 @@
 import React, { useEffect } from "react";
-import { Route, Switch, useLocation } from "react-router-dom";
+import { Route, Switch, useHistory, useLocation } from "react-router-dom";
 import AppHeader from "../app-header/AppHeader";
 import styles from "./app.module.css";
 import { ForgotPassword, Home, Ingredient, Login, NotFound404, Profile, Register, ResetPassword } from "../../pages"
 import ProtectedRoute from "../protected-route/ProtectedRoute";
 import { useDispatch, useSelector } from "react-redux";
-import { getIngredients } from "../../services/actions/ingredients";
+import { getIngredients, unsetCurrentIngredient } from "../../services/actions/ingredients";
+import Modal from "../modal/Modal";
 
 const App = () => {
     const location = useLocation();
+    const history = useHistory();
     const dispatch = useDispatch();
     const { items } = useSelector(store => store.ingredients);
+    let background = location.state && location.state.background;
 
+    const closeModal = e => {
+        e.preventDefault();
+
+        dispatch(unsetCurrentIngredient());
+        history.goBack();
+    }
 
     useEffect(() => {
         !items.length && dispatch(getIngredients());
@@ -21,7 +30,7 @@ const App = () => {
         <>
             <AppHeader/>
             <section className={ styles.wrapper }>
-                <Switch>
+                <Switch location={ background || location }>
                     <Route path="/" exact={ true }>
                         <Home/>
                     </Route>
@@ -47,6 +56,11 @@ const App = () => {
                         <NotFound404/>
                     </Route>
                 </Switch>
+                { background && <Route path="/ingredients/:id" children={
+                    <Modal onClose={ closeModal }>
+                        <Ingredient/>
+                    </Modal>
+                }/> }
             </section>
 
         </>

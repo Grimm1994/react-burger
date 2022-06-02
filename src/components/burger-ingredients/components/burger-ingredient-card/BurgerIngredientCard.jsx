@@ -5,11 +5,12 @@ import ingredientsTypes from "../../../../utils/types";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentIngredient } from "../../../../services/actions/ingredients";
 import { useDrag } from "react-dnd";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 const BurgerIngredientCard = ({ item }) => {
     const dispatch = useDispatch();
     const history = useHistory();
+    let location = useLocation();
 
     const constructorItems = useSelector(store => [store.cart.bun, store.cart.bun, ...store.cart.items]);
 
@@ -24,7 +25,7 @@ const BurgerIngredientCard = ({ item }) => {
     const openModal = () => {
         history.push({
             pathname: `/ingredients/${ item._id }`,
-            state: { modal: true }
+            state: { background: location }
         })
 
         dispatch(setCurrentIngredient(item));

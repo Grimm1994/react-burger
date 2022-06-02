@@ -99,9 +99,7 @@ const API = {
                 "Authorization": `Bearer ${ localStorage.getItem("token") }`
             },
             body: JSON.stringify(data)
-        }).then(checkUserResponse).catch(err => {
-            console.log(err);
-        })
+        }).then(checkUserResponse)
     },
 }
 

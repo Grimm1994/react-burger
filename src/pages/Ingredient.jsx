@@ -1,31 +1,21 @@
 import React, { useEffect } from 'react';
 import styles from "./ingredient.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import IngredientDetails from "../components/ingredient-details/IngredientDetails";
-import { Home, NotFound404 } from "./index";
+import { NotFound404 } from "./index";
 import { Rings } from "react-loader-spinner";
-import { setCurrentIngredient, unsetCurrentIngredient } from "../services/actions/ingredients";
-import PropTypes from "prop-types";
-import Modal from "../components/modal/Modal";
+import { setCurrentIngredient } from "../services/actions/ingredients";
 
-const Ingredient = ({ location }) => {
-    const history = useHistory();
+const Ingredient = () => {
     const dispatch = useDispatch();
     const { items, itemsRequest, item } = useSelector(store => store.ingredients);
     const { id } = useParams();
     const ingredient = (items) ? items.find(item => item._id === id) : null;
 
-    const { state } = location;
-
     useEffect(() => {
         dispatch(setCurrentIngredient(ingredient))
     }, [ingredient, dispatch])
-
-    const closeModal = () => {
-        dispatch(unsetCurrentIngredient());
-        history.push("/");
-    }
 
     const render = () => {
         if (itemsRequest) {
@@ -33,22 +23,11 @@ const Ingredient = ({ location }) => {
         }
 
         if (item) {
-            if (state?.modal) {
-                return (
-                    <>
-                        <Home/>
-                        <Modal onClose={ () => closeModal() }>
-                            <IngredientDetails/>
-                        </Modal>
-                    </>
-                )
-            } else {
-                return (
-                    <div className={ styles.wrapper }>
-                        <IngredientDetails/>
-                    </div>
-                )
-            }
+            return (
+                <div className={ styles.wrapper }>
+                    <IngredientDetails/>
+                </div>
+            )
         } else {
             return <NotFound404/>
         }
@@ -57,9 +36,5 @@ const Ingredient = ({ location }) => {
 
     return render();
 };
-
-Ingredient.prototype = {
-    location: PropTypes.object
-}
 
 export default Ingredient;
