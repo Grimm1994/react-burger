@@ -7,32 +7,42 @@ export const GET_INGREDIENTS_FAILED = "GET_INGREDIENTS_FAILED";
 export const SET_CURRENT_INGREDIENT = "SET_CURRENT_INGREDIENT";
 export const UNSET_CURRENT_INGREDIENT = "UNSET_CURRENT_INGREDIENT";
 
-export const getIngredients = () => dispatch => {
-    dispatch({
+const getIngredientsRequest = () => {
+    return {
         type: GET_INGREDIENTS_REQUEST
-    })
+    }
+}
+
+const getIngredientsFailed = () => {
+    return {
+        type: GET_INGREDIENTS_FAILED
+    }
+}
+
+const getIngredientsSuccess = data => {
+    return {
+        type: GET_INGREDIENTS_SUCCESS,
+        items: data
+    }
+}
+
+export const getIngredients = () => dispatch => {
+    dispatch(getIngredientsRequest());
 
     API.getIngredients("/ingredients").then(response => {
         const { success, data } = response;
 
         if (success && data) {
-            dispatch({
-                type: GET_INGREDIENTS_SUCCESS,
-                items: data
-            });
+            dispatch(getIngredientsSuccess(data));
         } else {
-            dispatch({
-                type: GET_INGREDIENTS_FAILED
-            })
+            dispatch(getIngredientsFailed());
         }
     }).catch(err => {
-        dispatch({
-            type: GET_INGREDIENTS_FAILED
-        })
+        dispatch(getIngredientsFailed());
     })
 }
 
-export const setCurrentIngredient = (item) => {
+export const setCurrentIngredient = item => {
     return {
         type: SET_CURRENT_INGREDIENT,
         item

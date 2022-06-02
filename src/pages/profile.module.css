@@ -1,0 +1,19 @@
+.wrapper {
+    display: flex;
+    align-self: center;
+    width: 100%;
+}
+
+.form :global(.input) {
+    width: 480px;
+}
+
+.btnWrapper {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.loaderWrapper {
+    justify-content: center;
+    width: 100%;
+}

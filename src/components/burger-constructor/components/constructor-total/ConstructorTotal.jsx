@@ -9,9 +9,13 @@ import { useDispatch, useSelector } from "react-redux";
 import ingredientsTypes from "../../../../utils/types";
 import PropTypes from "prop-types";
 import { TailSpin } from "react-loader-spinner";
+import { useHistory } from "react-router-dom";
+import { useAuth } from "../../../../services/hooks/auth";
 
 const ConstructorTotal = ({ bun, items }) => {
     const dispatch = useDispatch();
+    const history = useHistory();
+    const { isAuth } = useAuth();
 
     const { totalSum } = useSelector(store => store.cart)
     const { orderFailed, orderRequest } = useSelector(store => store.order)
@@ -34,7 +38,13 @@ const ConstructorTotal = ({ bun, items }) => {
         dispatch(setTotalSum(getSum()))
     }, [dispatch, getSum])
 
-    const createNewOrder = () => {
+    const createNewOrder = e => {
+        e.preventDefault();
+
+        if (!isAuth()) {
+            history.push("/login");
+        }
+
         const toppingIds = items?.map(item => item._id);
 
         const orderData = [
@@ -56,13 +66,14 @@ const ConstructorTotal = ({ bun, items }) => {
         }
 
         return (
-            <Modal onClose={ () => closeModal() }>
+            <Modal onClose={ closeModal }>
                 <OrderDetails/>
             </Modal>
         )
     }
 
-    const closeModal = () => {
+    const closeModal = e => {
+        e.preventDefault();
         setIsModal(false);
 
         dispatch(clearConstructor());
@@ -80,9 +91,9 @@ const ConstructorTotal = ({ bun, items }) => {
                     <span className="text text_type_digits-medium mr-2">{ totalSum }</span>
                     <CurrencyIcon type="primary"/>
                 </div>
-                <Button type="primary" size="large" onClick={ () => createNewOrder() }>
-                    <div className={styles.btnInner}>
-                        { orderRequest && <TailSpin wrapperClass={styles.spinner} color="#fff" /> }
+                <Button type="primary" size="large" onClick={ createNewOrder }>
+                    <div className={ styles.btnInner }>
+                        { orderRequest && <TailSpin wrapperClass={ styles.spinner } color="#fff"/> }
                         Оформить заказ
                     </div>
                 </Button>

@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from "./burger-ingredient-card.module.css";
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import Modal from "../../../modal/Modal";
-import IngredientDetails from "../../../ingredient-details/IngredientDetails";
 import ingredientsTypes from "../../../../utils/types";
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentIngredient, unsetCurrentIngredient } from "../../../../services/actions/ingredients";
+import { setCurrentIngredient } from "../../../../services/actions/ingredients";
 import { useDrag } from "react-dnd";
+import { useHistory, useLocation } from "react-router-dom";
 
 const BurgerIngredientCard = ({ item }) => {
-    const [isModal, setIsModal] = useState(false);
     const dispatch = useDispatch();
+    const history = useHistory();
+    let location = useLocation();
 
     const constructorItems = useSelector(store => [store.cart.bun, store.cart.bun, ...store.cart.items]);
 
@@ -23,32 +23,25 @@ const BurgerIngredientCard = ({ item }) => {
     })
 
     const openModal = () => {
-        setIsModal(true);
+        history.push({
+            pathname: `/ingredients/${ item._id }`,
+            state: { background: location }
+        })
+
         dispatch(setCurrentIngredient(item));
     }
-
-    const closeModal = () => {
-        setIsModal(false);
-        dispatch(unsetCurrentIngredient());
-    }
-
-    const renderModal = (item) => (
-        <Modal onClose={ () => closeModal() } title="Детали ингредиента">
-            <IngredientDetails item={ item }/>
-        </Modal>
-    )
 
     return (
         <>
             <div
                 className={ `${ styles.item } mb-8` }
                 key={ item._id }
-                onClick={ () => openModal() }
+                onClick={ openModal }
                 ref={ ref }
             >
                 <div className={ styles.picture }>
                     <img src={ item.image } alt={ item.name }/>
-                    {count > 0 && <Counter count={ count } size="default"/>}
+                    { count > 0 && <Counter count={ count } size="default"/> }
                 </div>
                 <div className={ styles.price }>
                     <span className="text text_type_digits-default mr-2">{ item.price }</span>
@@ -58,7 +51,6 @@ const BurgerIngredientCard = ({ item }) => {
                     <p className="text text_type_main-default">{ item.name }</p>
                 </div>
             </div>
-            { isModal && renderModal(item) }
         </>
     );
 };

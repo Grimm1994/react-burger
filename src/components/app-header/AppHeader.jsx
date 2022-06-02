@@ -2,6 +2,7 @@ import React from "react";
 import { Logo, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./app-header.module.css";
 import HeaderMenu from "./components/header-menu/HeaderMenu";
+import { NavLink } from "react-router-dom";
 
 
 const AppHeader = () => {
@@ -12,14 +13,18 @@ const AppHeader = () => {
                 <div className={styles.wrapperContainer}>
                     <div className={ styles.wrapperInner }>
                         <HeaderMenu/>
-                        <a className={ styles.logo } href="/">
+                        <NavLink className={ styles.logo } to="/">
                             <Logo/>
-                        </a>
+                        </NavLink>
                     </div>
-                    <a href="/" className={ `${ styles.profile } text_type_main-default pt-4 pb-4 pr-5 pl-5` }>
+                    <NavLink
+                        to="/profile"
+                        className={ `${ styles.profile } text_type_main-default pt-4 pb-4 pr-5 pl-5` }
+                        activeClassName={ styles.active }
+                    >
                         <ProfileIcon type="secondary"/>
                         <span>Личный кабинет</span>
-                    </a>
+                    </NavLink>
                 </div>
             </div>
         </header>

@@ -14,9 +14,7 @@
     z-index: 1000;
     animation: slideUp .3s ease-in-out forwards 1;
 }
-.title {
-    line-height: 64px;
-}
+
 .close {
     cursor: pointer;
     position: absolute;

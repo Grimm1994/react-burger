@@ -13,6 +13,10 @@
     max-width: 480px;
 }
 
+.title {
+    line-height: 64px;
+}
+
 .container {
     width: 100%;
     display: flex;
