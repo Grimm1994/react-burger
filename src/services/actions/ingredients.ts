@@ -19,14 +19,14 @@ const getIngredientsFailed = () => {
     }
 }
 
-const getIngredientsSuccess = data => {
+const getIngredientsSuccess = (data: any): any => {
     return {
         type: GET_INGREDIENTS_SUCCESS,
         items: data
     }
 }
 
-export const getIngredients = () => dispatch => {
+export const getIngredients = (): any => (dispatch: any) => {
     dispatch(getIngredientsRequest());
 
     API.getIngredients("/ingredients").then(response => {
@@ -42,14 +42,14 @@ export const getIngredients = () => dispatch => {
     })
 }
 
-export const setCurrentIngredient = item => {
+export const setCurrentIngredient = (item: any): any => {
     return {
         type: SET_CURRENT_INGREDIENT,
         item
     }
 }
 
-export const unsetCurrentIngredient = () => {
+export const unsetCurrentIngredient = (): any => {
     return {
         type: UNSET_CURRENT_INGREDIENT
     }

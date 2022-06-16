@@ -15,4 +15,10 @@ const ingredientsTypes = PropTypes.shape({
     __v: PropTypes.number,
 });
 
+
+export type TLocation = {
+    from: Location;
+    background?: Location;
+};
+
 export default ingredientsTypes;

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, FC, ReactElement } from "react";
 import { Route, Switch, useHistory, useLocation } from "react-router-dom";
 import AppHeader from "../app-header/AppHeader";
 import styles from "./app.module.css";
@@ -7,15 +7,16 @@ import ProtectedRoute from "../protected-route/ProtectedRoute";
 import { useDispatch, useSelector } from "react-redux";
 import { getIngredients, unsetCurrentIngredient } from "../../services/actions/ingredients";
 import Modal from "../modal/Modal";
+import { TLocation } from "../../utils/types";
 
-const App = () => {
-    const location = useLocation();
+const App: FC = (): ReactElement => {
+    const location = useLocation<TLocation>();
     const history = useHistory();
     const dispatch = useDispatch();
-    const { items } = useSelector(store => store.ingredients);
+    const { items } = useSelector(( store: any ) => store.ingredients);
     let background = location.state && location.state.background;
 
-    const closeModal = e => {
+    const closeModal = ( e: React.ChangeEvent<HTMLInputElement> ): void => {
         e.preventDefault();
 
         dispatch(unsetCurrentIngredient());
@@ -50,7 +51,7 @@ const App = () => {
                         <Profile/>
                     </ProtectedRoute>
                     <Route path="/ingredients/:id" exact={ true }>
-                        <Ingredient location={ location }/>
+                        <Ingredient/>
                     </Route>
                     <Route>
                         <NotFound404/>
