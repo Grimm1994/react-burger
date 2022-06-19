@@ -1,29 +1,29 @@
-import React, { useCallback, useState } from "react";
+import React, { ChangeEvent, FC, ReactElement, useCallback, useState } from "react";
 import styles from "./index.module.css";
 import { Button, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, Redirect, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "../services/actions/user";
 import { useAuth } from "../services/hooks/auth";
+import { TLocation, TLoginState } from "../utils/types";
 
-const Login = () => {
-    const [form, setValue] = useState({ email: "", password: "" });
-    const { loginErrorMessage } = useSelector(store => store.user);
+const Login: FC = (): ReactElement => {
+    const [form, setValue] = useState<TLoginState>({ email: "", password: "" });
+    const { loginErrorMessage } = useSelector((store: any) => store.user);
     const dispatch = useDispatch();
     const { isAuth } = useAuth();
-    const location = useLocation();
+    const location = useLocation<TLocation>();
     const { state } = location;
 
-    const onChange = e => {
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setValue({
             ...form,
             [e.target.name]: e.target.value
         })
     }
 
-    const auth = useCallback(e => {
+    const auth = useCallback((e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
-
         dispatch(signIn(form))
     }, [dispatch, form])
 

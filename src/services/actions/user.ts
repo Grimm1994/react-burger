@@ -1,4 +1,5 @@
 import API from "../../utils/api";
+import { TLoginState, TRegisterState, TUserDataState } from "../../utils/types";
 
 export const CREATE_USER_SUCCESS = "CREATE_USER_SUCCESS";
 export const CREATE_USER_FAILED = "CREATE_USER_FAILED";
@@ -14,61 +15,61 @@ export const LOGOUT = "LOGOUT";
 
 export const SET_LOADING = "SET_LOADING";
 
-const logoutAction = () => {
+const logoutAction = (): any => {
     return {
         type: LOGOUT
     }
 }
 
-const setLoading = () => {
+const setLoading = (): any => {
     return {
         type: SET_LOADING
     }
 }
 
-const getUserSuccess = user => {
+const getUserSuccess = (user: Array<any>): any => {
     return {
         type: GET_USER_SUCCESS,
         user
     }
 }
 
-const updateUserSuccess = user => {
+const updateUserSuccess = (user: Array<any>): any => {
     return {
         type: UPDATE_USER_SUCCESS,
         user
     }
 }
 
-const createUserSuccess = user => {
+const createUserSuccess = (user: Array<any>): any => {
     return {
         type: CREATE_USER_SUCCESS,
         user
     }
 }
 
-const createUserFailed = message => {
+const createUserFailed = (message: string): any => {
     return {
         type: CREATE_USER_FAILED,
         message
     }
 }
 
-const signInFailed = message => {
+const signInFailed = (message: string): any => {
     return {
         type: SIGN_IN_FAILED,
         message
     }
 }
 
-const signInSuccess = user => {
+const signInSuccess = (user: Array<any>): any => {
     return {
         type: SIGN_IN_SUCCESS,
         user
     }
 }
 
-export const logout = () => dispatch => {
+export const logout = (): any => (dispatch: any) => {
     API.logout("/auth/logout").then(response => {
         if (response.success) {
             dispatch(logoutAction());
@@ -81,7 +82,7 @@ export const logout = () => dispatch => {
     })
 }
 
-export const getUser = () => async dispatch => {
+export const getUser = (): any => (dispatch: any) => {
     dispatch(setLoading())
     API.getUser("/auth/user").then(response => {
         if (response.success) {
@@ -98,7 +99,7 @@ export const getUser = () => async dispatch => {
     })
 }
 
-export const updateUser = data => async dispatch => {
+export const updateUser = (data: TUserDataState): any => (dispatch: any) => {
     API.updateUser("/auth/user", data).then(response => {
         if (response.success) {
             dispatch(updateUserSuccess(response.user));
@@ -114,7 +115,7 @@ export const updateUser = data => async dispatch => {
     })
 }
 
-export const createUser = data => dispatch => {
+export const createUser = (data: TRegisterState): any => (dispatch: any) => {
     API.createUser("/auth/register", data).then(response => {
         if (response.success) {
 
@@ -127,7 +128,7 @@ export const createUser = data => dispatch => {
     })
 }
 
-export const signIn = data => dispatch => {
+export const signIn = (data: TLoginState): any => (dispatch: any) => {
     API.signIn("/auth/login", data).then(response => {
         if (response.success) {
             saveTokens(response);
@@ -139,13 +140,13 @@ export const signIn = data => dispatch => {
     })
 }
 
-const updateToken = async (err, callback) => {
+const updateToken = async (err: { message: string }, callback: () => void) => {
     const res = await err;
 
     if (res.message === "jwt expired") {
         const refreshToken = localStorage.getItem("refreshToken");
 
-        API.updateToken("/auth/token",refreshToken).then(response => {
+        API.updateToken("/auth/token", refreshToken).then(response => {
             if (response.success) {
                 saveTokens(response);
 
@@ -157,7 +158,7 @@ const updateToken = async (err, callback) => {
     }
 }
 
-const saveTokens = response => {
+const saveTokens = (response: any) => {
     let accessToken;
     if (response.accessToken.indexOf("Bearer") === 0) {
         accessToken = response.accessToken.split("Bearer ")[1];

@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { FC, ReactElement } from 'react';
 import BurgerIngredients from "../components/burger-ingredients/BurgerIngredients";
 import BurgerConstructor from "../components/burger-constructor/BurgerConstructor";
 import { useSelector } from "react-redux";
 import styles from "./ingredient.module.css";
 import { Rings } from "react-loader-spinner";
 
-const Home = () => {
-    const { itemsRequest } = useSelector(store => store.ingredients);
+const Home: FC = (): ReactElement => {
+    const { itemsRequest } = useSelector((store: any) => store.ingredients);
 
     return (
         (itemsRequest ? (

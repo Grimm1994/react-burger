@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { FC, ReactElement } from 'react';
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import styles from './order-details.module.css';
 import { useSelector } from "react-redux";
 
-const OrderDetails = () => {
-    const { order } = useSelector(store => store.order);
+const OrderDetails: FC = (): ReactElement => {
+    const { order } = useSelector((store: any) => store.order);
 
     return (
         <div className={`${styles.card} pt-20 pb-20`}>

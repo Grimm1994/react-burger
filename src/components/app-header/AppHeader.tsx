@@ -1,11 +1,11 @@
-import React from "react";
+import React, { FC, ReactElement } from "react";
 import { Logo, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./app-header.module.css";
 import HeaderMenu from "./components/header-menu/HeaderMenu";
 import { NavLink } from "react-router-dom";
 
 
-const AppHeader = () => {
+const AppHeader: FC = (): ReactElement => {
 
     return (
         <header className={ `${ styles.header } pt-4 pb-4 mb-10` }>

@@ -1,4 +1,4 @@
-import React, { useEffect, FC, ReactElement } from "react";
+import React, { FC, ReactElement, useEffect } from "react";
 import { Route, Switch, useHistory, useLocation } from "react-router-dom";
 import AppHeader from "../app-header/AppHeader";
 import styles from "./app.module.css";
@@ -16,8 +16,7 @@ const App: FC = (): ReactElement => {
     const { items } = useSelector(( store: any ) => store.ingredients);
     let background = location.state && location.state.background;
 
-    const closeModal = ( e: React.ChangeEvent<HTMLInputElement> ): void => {
-        e.preventDefault();
+    const closeModal = (): void => {
 
         dispatch(unsetCurrentIngredient());
         history.goBack();

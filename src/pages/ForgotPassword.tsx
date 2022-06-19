@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, FC, ReactElement, useEffect, useState } from 'react';
 import styles from "./index.module.css";
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useHistory } from "react-router-dom";
 import API from "../utils/api";
 import { useAuth } from "../services/hooks/auth";
 
-const Register = () => {
+const ForgotPassword: FC = (): ReactElement => {
     const { isAuth } = useAuth();
 
     const history = useHistory();
-    const [value, setValue] = useState("");
-    const [error, setError] = useState("");
+    const [value, setValue] = useState<string>("");
+    const [error, setError] = useState<string>("");
 
-    const resetPassword = e => {
+    const resetPassword = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (value) {
             API.resetPassword("/password-reset", value)
@@ -62,4 +62,4 @@ const Register = () => {
     );
 };
 
-export default Register;
+export default ForgotPassword;

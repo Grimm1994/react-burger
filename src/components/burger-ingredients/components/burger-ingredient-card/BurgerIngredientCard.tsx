@@ -1,28 +1,28 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styles from "./burger-ingredient-card.module.css";
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import ingredientsTypes from "../../../../utils/types";
+import { TIngredient } from "../../../../utils/types";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentIngredient } from "../../../../services/actions/ingredients";
 import { useDrag } from "react-dnd";
 import { useHistory, useLocation } from "react-router-dom";
 
-const BurgerIngredientCard = ({ item }) => {
+const BurgerIngredientCard: FC<{ item: TIngredient }> = ({ item }) => {
     const dispatch = useDispatch();
     const history = useHistory();
     let location = useLocation();
 
-    const constructorItems = useSelector(store => [store.cart.bun, store.cart.bun, ...store.cart.items]);
+    const constructorItems = useSelector((store: any) => [store.cart.bun, store.cart.bun, ...store.cart.items]);
 
 
-    const count = constructorItems.filter(constructorItem => constructorItem._id === item._id).length;
+    const count: number = constructorItems.filter(constructorItem => constructorItem._id === item._id).length;
 
     const [, ref] = useDrag({
         type: "items",
         item: item,
     })
 
-    const openModal = () => {
+    const openModal = (): void => {
         history.push({
             pathname: `/ingredients/${ item._id }`,
             state: { background: location }
@@ -53,10 +53,6 @@ const BurgerIngredientCard = ({ item }) => {
             </div>
         </>
     );
-};
-
-BurgerIngredientCard.propTypes = {
-    item: ingredientsTypes.isRequired,
 };
 
 export default React.memo(BurgerIngredientCard);

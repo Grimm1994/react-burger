@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { FC, ReactElement } from 'react';
 
-const NotFound404 = () => {
+const NotFound404: FC = (): ReactElement => {
     return (
         <div>
             404 not found

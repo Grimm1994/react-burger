@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import styles from "./profile.module.css";
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useHistory } from "react-router-dom";
@@ -7,6 +7,7 @@ import { logout, updateUser } from "../services/actions/user";
 import ProfileNavbar from "../components/profile-navbar/ProfileNavbar";
 import { useAuth } from "../services/hooks/auth";
 import { Rings } from "react-loader-spinner";
+import { TUserDataEditAbleState, TUserDataState } from "../utils/types";
 
 const Profile = () => {
     const { user, loading } = useAuth();
@@ -14,8 +15,8 @@ const Profile = () => {
 
     const dispatch = useDispatch();
 
-    const [form, setValue] = useState({ name: "", email: "", password: "" });
-    const [isChanged, setIsChanged] = useState(false);
+    const [form, setValue] = useState<TUserDataState>({ name: "", email: "", password: "" });
+    const [isChanged, setIsChanged] = useState<boolean>(false);
 
     useEffect(() => {
         if (user) {
@@ -27,9 +28,9 @@ const Profile = () => {
         }
     }, [user])
 
-    const [isEditAble, setIsEditAble] = useState({ name: false, email: false, password: false });
+    const [isEditAble, setIsEditAble] = useState<TUserDataEditAbleState>({ name: false, email: false, password: false });
 
-    const onChange = e => {
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
 
         setIsChanged(true);
@@ -39,7 +40,7 @@ const Profile = () => {
         })
     }
 
-    const onSubmit = e => {
+    const onSubmit = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (!isChanged) return false;
@@ -51,26 +52,20 @@ const Profile = () => {
         }
     }
 
-    const editHandle = useCallback((e, name) => {
-        e.preventDefault();
-
+    const editHandle = useCallback((name: string) => {
         setIsEditAble({
             ...isEditAble,
             [name]: !isEditAble[name]
         })
     }, [isEditAble])
 
-    const logoutHandle = (e) => {
-        e.preventDefault();
-
+    const logoutHandle = (): void => {
         dispatch(logout());
 
         history.push("/login");
     }
 
-    const cancelHandle = e => {
-        e.preventDefault();
-
+    const cancelHandle = () => {
         setValue({
             ...form,
             name: user.name,
@@ -98,7 +93,7 @@ const Profile = () => {
                                 value={ form.name }
                                 name={ 'name' }
                                 icon={ isEditAble.name ? "CheckMarkIcon" : "EditIcon" }
-                                onIconClick={ (e) => editHandle(e, "name") }
+                                onIconClick={ () => editHandle("name") }
                                 disabled={ !isEditAble.name }
                             />
                         </div>
@@ -110,7 +105,7 @@ const Profile = () => {
                                 value={ form.email }
                                 name={ 'email' }
                                 icon={ isEditAble.email ? "CheckMarkIcon" : "EditIcon" }
-                                onIconClick={ (e) => editHandle(e, "email") }
+                                onIconClick={ () => editHandle("email") }
                                 disabled={ !isEditAble.email }
                             />
                         </div>
@@ -122,7 +117,7 @@ const Profile = () => {
                                 value={ form.password }
                                 name={ 'password' }
                                 icon={ isEditAble.password ? "CheckMarkIcon" : "EditIcon" }
-                                onIconClick={ (e) => editHandle(e, "password") }
+                                onIconClick={ () => editHandle("password") }
                                 disabled={ !isEditAble.password }
                             />
                         </div>

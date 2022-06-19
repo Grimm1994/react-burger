@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { FC, ReactElement } from 'react';
 import styles from "./profile-navbar.module.css";
 import { NavLink } from "react-router-dom";
-import PropTypes from "prop-types";
 
-const ProfileNavbar = ({ logoutHandle }) => {
+const ProfileNavbar: FC<{ logoutHandle: () => void }> = ( { logoutHandle } ): ReactElement => {
     return (
         <aside className={ `${ styles.sidebar } mr-20` }>
             <nav className={ styles.navbar }>
@@ -22,10 +21,6 @@ const ProfileNavbar = ({ logoutHandle }) => {
             </p>
         </aside>
     );
-};
-
-ProfileNavbar.propTypes = {
-    logoutHandle: PropTypes.func.isRequired,
 };
 
 export default ProfileNavbar;

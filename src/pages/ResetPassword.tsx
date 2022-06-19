@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, FC, ReactElement, useEffect, useState } from 'react';
 import styles from "./index.module.css";
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import API from "../utils/api";
+import { TLocation, TResetPasswordState } from "../utils/types";
 
-const Register = () => {
+const ResetPassword: FC = (): ReactElement => {
     const history = useHistory();
-    const { state } = useLocation();
+    const { state } = useLocation<TLocation>();
 
-    const [form, setValue] = useState({ password: "", token: "" });
+    const [form, setValue] = useState<TResetPasswordState>({ password: "", token: "" });
     const [isHide, setIsHide] = useState(true);
     const [error, setError] = useState("");
 
-    const onChange = e => {
+    const onChange = ( e: ChangeEvent<HTMLInputElement> ) => {
         setValue({
             ...form,
             [e.target.name]: e.target.value
@@ -23,7 +24,7 @@ const Register = () => {
         !state && history.push("/")
     }, [state, history])
 
-    const updatePassword = e => {
+    const updatePassword = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         API.updatePassword("/password-reset/reset", form).then(response => {
@@ -39,7 +40,7 @@ const Register = () => {
         <div className={ styles.wrapper }>
             <div className={ styles.inner }>
                 <h1 className="text text_type_main-medium mb-6">Восстановление пароля</h1>
-                <form className={ `${ styles.form } mb-20` } onSubmit={updatePassword}>
+                <form className={ `${ styles.form } mb-20` } onSubmit={ updatePassword }>
                     <div className="mb-6">
                         <Input
                             type={ isHide ? 'password' : "text" }
@@ -78,4 +79,4 @@ const Register = () => {
     );
 };
 
-export default Register;
+export default ResetPassword;

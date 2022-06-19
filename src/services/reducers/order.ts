@@ -5,7 +5,7 @@ import {
 } from "../actions/order";
 
 
-const initialState = {
+const initialState: any = {
     orderRequest: false,
     orderFailed: false,
     order: {
@@ -13,7 +13,7 @@ const initialState = {
     },
 }
 
-export const orderReducer = (state = initialState, action) => {
+export const orderReducer = (state = initialState, action: any) => {
     switch (action.type) {
 
         case GET_ORDER_NUMBER_REQUEST: {

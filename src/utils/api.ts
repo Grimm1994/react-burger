@@ -1,10 +1,12 @@
+import { TLoginState, TRegisterState, TResetPasswordState, TUserDataState } from "./types";
+
 const BASE_URL = 'https://norma.nomoreparties.space/api';
 const API = {
-    getIngredients: async (url) => {
+    getIngredients: async (url: string) => {
         return await fetch(`${ BASE_URL }${ url }`).then(checkResponse)
     },
 
-    createOrder: async (url, data) => {
+    createOrder: async (url: string, data: Array<string>) => {
         return await fetch(`${ BASE_URL }${ url }`, {
             method: "POST",
             body: JSON.stringify({
@@ -16,7 +18,7 @@ const API = {
         }).then(checkResponse)
     },
 
-    createUser: async (url, data) => {
+    createUser: async (url: string, data: TRegisterState) => {
         return await fetch(`${ BASE_URL }${ url }`, {
             method: "POST",
             body: JSON.stringify(data),
@@ -26,7 +28,7 @@ const API = {
         }).then(checkUserResponse)
     },
 
-    signIn: async (url, data) => {
+    signIn: async (url: string, data: TLoginState) => {
         return await fetch(`${ BASE_URL }${ url }`, {
             method: "POST",
             body: JSON.stringify(data),
@@ -36,7 +38,7 @@ const API = {
         }).then(checkUserResponse)
     },
 
-    logout: async (url) => {
+    logout: async (url: string) => {
         return await fetch(`${ BASE_URL }${ url }`, {
             method: 'POST',
             headers: {
@@ -48,7 +50,7 @@ const API = {
         }).then(checkResponse)
     },
 
-    resetPassword: async (url, data) => {
+    resetPassword: async (url: string, data: string) => {
         return await fetch(`${ BASE_URL }${ url }`, {
             method: "POST",
             body: JSON.stringify({
@@ -60,7 +62,7 @@ const API = {
         }).then(checkResponse)
     },
 
-    updatePassword: async (url, data) => {
+    updatePassword: async (url: string, data: TResetPasswordState) => {
         return await fetch(`${ BASE_URL }${ url }`, {
             method: "POST",
             body: JSON.stringify(data),
@@ -70,7 +72,7 @@ const API = {
         }).then(checkUserResponse)
     },
 
-    updateToken: async (url, refreshToken) => {
+    updateToken: async (url: string, refreshToken: string | null) => {
         return await fetch(`${ BASE_URL }${ url }`, {
             method: "POST",
             body: JSON.stringify({
@@ -82,7 +84,7 @@ const API = {
         }).then(checkResponse)
     },
 
-    getUser: async (url) => {
+    getUser: async (url: string) => {
         return await fetch(`${ BASE_URL }${ url }`, {
             headers: {
                 "Content-Type": "application/json",
@@ -91,7 +93,7 @@ const API = {
         }).then(checkUserResponse);
     },
 
-    updateUser: async (url, data) => {
+    updateUser: async (url: string, data: TUserDataState) => {
         return await fetch(`${ BASE_URL }${ url }`, {
             method: "PATCH",
             headers: {
@@ -105,7 +107,7 @@ const API = {
 
 export default API;
 
-const checkResponse = response => {
+const checkResponse = (response: Response) => {
     if (response.ok) {
         return response.json();
     }
@@ -113,10 +115,10 @@ const checkResponse = response => {
     return Promise.reject(response.status);
 };
 
-const checkUserResponse = response => {
+const checkUserResponse = (response: Response) => {
     if (response.ok) {
         return response.json();
     }
 
-    return Promise.reject(response.text().then(async res => JSON.parse(await res)));
+    return Promise.reject(response.text().then(async (res: any) => JSON.parse(await res)));
 };

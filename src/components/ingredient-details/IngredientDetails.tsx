@@ -1,9 +1,9 @@
-import React from "react";
+import React, { FC, ReactElement } from "react";
 import styles from "./ingredient-details.module.css";
 import { useSelector } from "react-redux";
 
-function IngredientsDetails() {
-    const { item } = useSelector(store => store.ingredients);
+const IngredientsDetails: FC = (): ReactElement => {
+    const { item } = useSelector((store: any) => store.ingredients);
 
     return (
         <article className={ styles.card }>

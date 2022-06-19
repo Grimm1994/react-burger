@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { FC, ReactElement, useCallback, useEffect, useState } from 'react';
 import styles from "./constructor-total.module.css";
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../../../modal/Modal";
@@ -6,21 +6,20 @@ import OrderDetails from "../../../order-details/OrderDetails";
 import { clearConstructor, setTotalSum } from "../../../../services/actions/cart";
 import { createOrder } from "../../../../services/actions/order";
 import { useDispatch, useSelector } from "react-redux";
-import ingredientsTypes from "../../../../utils/types";
-import PropTypes from "prop-types";
+import { TConstructorTotal } from "../../../../utils/types";
 import { TailSpin } from "react-loader-spinner";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../../../services/hooks/auth";
 
-const ConstructorTotal = ({ bun, items }) => {
+const ConstructorTotal: FC<TConstructorTotal> = ({ bun, items }): ReactElement => {
     const dispatch = useDispatch();
     const history = useHistory();
     const { isAuth } = useAuth();
 
-    const { totalSum } = useSelector(store => store.cart)
-    const { orderFailed, orderRequest } = useSelector(store => store.order)
+    const { totalSum } = useSelector((store: any) => store.cart)
+    const { orderFailed, orderRequest } = useSelector((store: any) => store.order)
 
-    const [isModal, setIsModal] = useState(false);
+    const [isModal, setIsModal] = useState<boolean>(false);
 
     const getSum = useCallback(() => {
         let bunSum = 0
@@ -38,9 +37,7 @@ const ConstructorTotal = ({ bun, items }) => {
         dispatch(setTotalSum(getSum()))
     }, [dispatch, getSum])
 
-    const createNewOrder = e => {
-        e.preventDefault();
-
+    const createNewOrder = () => {
         if (!isAuth()) {
             history.push("/login");
         }
@@ -72,8 +69,7 @@ const ConstructorTotal = ({ bun, items }) => {
         )
     }
 
-    const closeModal = e => {
-        e.preventDefault();
+    const closeModal = () => {
         setIsModal(false);
 
         dispatch(clearConstructor());
@@ -103,10 +99,5 @@ const ConstructorTotal = ({ bun, items }) => {
         </>
     );
 };
-
-ConstructorTotal.propTypes = {
-    bun: ingredientsTypes,
-    items: PropTypes.arrayOf(ingredientsTypes)
-}
 
 export default ConstructorTotal;

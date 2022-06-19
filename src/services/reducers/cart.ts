@@ -5,15 +5,16 @@ import {
     SET_BUN,
     SORT_INGREDIENTS, CLEAR_CONSTRUCTOR
 } from "../actions/cart";
+import { TConstructorItem, TUniqueIngredient } from "../../utils/types";
 
 
-const initialState = {
+const initialState: any = {
     totalSum: null,
     items: [],
     bun: {}
 }
 
-export const cartReducer = (state = initialState, action) => {
+export const cartReducer = (state = initialState, action: any) => {
     switch (action.type) {
 
         case CLEAR_CONSTRUCTOR: {
@@ -47,7 +48,7 @@ export const cartReducer = (state = initialState, action) => {
         case DELETE_CONSTRUCTOR_ITEM: {
             return {
                 ...state,
-                items: [ ...state.items.filter(item => item.uuid !== action.item.uuid)],
+                items: [ ...state.items.filter((item: TUniqueIngredient) => item.uuid !== action.item.uuid)],
             }
         }
 

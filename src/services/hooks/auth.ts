@@ -1,8 +1,9 @@
 import { useSelector } from "react-redux";
+import { TUseAuth } from "../../utils/types";
 
-export const useAuth = () => {
+export const useAuth = (): TUseAuth  => {
     const token = localStorage.getItem("token");
-    const { user, error, loading } = useSelector(store => store.user);
+    const { user, error, loading } = useSelector((store: any) => store.user);
 
     const isAuth = () => {
         return !!(token || user)

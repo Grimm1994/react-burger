@@ -1,9 +1,9 @@
-import React from "react";
+import React, { FC, ReactElement } from "react";
 import styles from "./header-menu.module.css";
 import { BurgerIcon, ListIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink } from "react-router-dom";
 
-const HeaderMenu = () => {
+const HeaderMenu: FC = (): ReactElement => {
     return (
         <nav>
             <ul className={ styles.menu }>

@@ -1,15 +1,14 @@
-import React, { useRef } from 'react';
+import React, { FC, ReactElement, useRef } from 'react';
 import styles from "./constructor-item.module.css";
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { deleteConstructorItem } from "../../../../services/actions/cart";
 import { useDispatch } from "react-redux";
-import ingredientsTypes from "../../../../utils/types";
-import PropTypes from "prop-types";
-import { useDrop, useDrag } from "react-dnd";
+import { TConstructorItem } from "../../../../utils/types";
+import { useDrag, useDrop } from "react-dnd";
 
 
-const ConstructorItem = ({ item, index, sortIngredient }) => {
-    const ref = useRef(null);
+const ConstructorItem: FC<TConstructorItem> = ({ item, index, sortIngredient }): ReactElement => {
+    const ref = useRef<HTMLDivElement>(null);
     const dispatch = useDispatch();
 
     const [{ handlerId }, drop] = useDrop({
@@ -19,7 +18,7 @@ const ConstructorItem = ({ item, index, sortIngredient }) => {
                 handlerId: monitor.getHandlerId(),
             }
         },
-        hover(item, monitor) {
+        hover(item: any, monitor) {
             if (!ref.current) {
                 return
             }
@@ -37,7 +36,7 @@ const ConstructorItem = ({ item, index, sortIngredient }) => {
             // Determine mouse position
             const clientOffset = monitor.getClientOffset()
             // Get pixels to the top
-            const hoverClientY = clientOffset.y - hoverBoundingRect.top
+            const hoverClientY = clientOffset!.y - hoverBoundingRect.top
             // Only perform the move when the mouse has crossed half of the items height
             // When dragging downwards, only move when the cursor is below 50%
             // When dragging upwards, only move when the cursor is above 50%
@@ -84,11 +83,5 @@ const ConstructorItem = ({ item, index, sortIngredient }) => {
         </div>
     );
 };
-
-ConstructorItem.propTypes = {
-    item: ingredientsTypes.isRequired,
-    index: PropTypes.number.isRequired,
-    sortIngredient: PropTypes.func.isRequired
-}
 
 export default ConstructorItem;

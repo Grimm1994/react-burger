@@ -16,14 +16,14 @@ const getOrderNumberFailed = () => {
     }
 }
 
-const getOrderNumberSuccess = number => {
+const getOrderNumberSuccess = (number: any) => {
     return {
         type: GET_ORDER_NUMBER_SUCCESS,
         number
     }
 }
 
-export const createOrder = order => dispatch => {
+export const createOrder = (order: Array<string>): any => (dispatch: any) => {
     dispatch(getOrderNumberRequest())
 
     API.createOrder("/orders", order).then(response => {

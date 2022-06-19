@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, FC, ReactElement, useEffect, useState } from 'react';
 import styles from "./index.module.css";
 import { Button, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createUser } from "../services/actions/user";
 import { useAuth } from "../services/hooks/auth";
+import { TRegisterState } from "../utils/types";
 
-const Register = () => {
-    const { registerErrorMessage } = useSelector(store => store.user);
+const Register: FC = (): ReactElement => {
+    const { registerErrorMessage } = useSelector((store: any) => store.user);
     const { isAuth } = useAuth();
     const history = useHistory();
-    const [form, setValue] = useState({ name: "", email: "", password: "" });
+    const [form, setValue] = useState<TRegisterState>({ name: "", email: "", password: "" });
     const dispatch = useDispatch();
 
-    const onChange = e => {
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setValue({
             ...form,
             [e.target.name]: e.target.value
@@ -24,7 +25,7 @@ const Register = () => {
         isAuth() && history.push("/")
     }, [isAuth, history])
 
-    const registerUser = e => {
+    const registerUser = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         dispatch(createUser(form));

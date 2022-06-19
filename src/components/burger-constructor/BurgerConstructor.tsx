@@ -1,26 +1,28 @@
-import React, { Fragment, useCallback } from 'react';
+import React, { FC, Fragment, ReactElement, useCallback } from 'react';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-constructor.module.css';
-import uuid from "react-uuid";
+import { v4 as uuidv4 } from "uuid";
 import { useDispatch, useSelector } from "react-redux";
 import { addConstructorItem, setBun, sortIngredients } from "../../services/actions/cart";
-import { useDrop } from "react-dnd";
+import { DropTargetMonitor, useDrop } from "react-dnd";
 import ConstructorItem from "./components/constructor-item/ConstructorItem";
 import ConstructorTotal from "./components/constructor-total/ConstructorTotal";
+import { TUniqueIngredient } from "../../utils/types";
 
-const BurgerConstructor = () => {
+
+const BurgerConstructor: FC = (): ReactElement => {
     const dispatch = useDispatch();
-    const { items, bun } = useSelector(store => store.cart);
+    const { items, bun } = useSelector((store: any) => store.cart);
 
 
-    const moveItem = (item) => {
+    const moveItem = (item: TUniqueIngredient) => {
         if (item.type !== "bun") {
             if (!bun.name) {
                 alert('Сначала выберите булку');
             } else {
                 dispatch(addConstructorItem({
                     ...item,
-                    uuid: uuid()
+                    uuid: uuidv4()
                 }));
             }
         } else {
@@ -30,15 +32,15 @@ const BurgerConstructor = () => {
 
     const [{ opacity }, dropTarget] = useDrop({
         accept: "items",
-        collect: monitor => ({
+        collect: (monitor: DropTargetMonitor) => ({
             opacity: monitor.isOver() ? "0.5" : "1"
         }),
-        drop(itemId) {
+        drop(itemId: TUniqueIngredient) {
             moveItem(itemId)
         }
     })
 
-    const sortIngredient = useCallback((dragIndex, hoverIndex) => {
+    const sortIngredient = useCallback((dragIndex: number, hoverIndex: number): void => {
         const sortedIngredients = items.slice();
         sortedIngredients.splice(dragIndex, 1);
         sortedIngredients.splice(hoverIndex, 0, items[dragIndex]);
@@ -69,7 +71,7 @@ const BurgerConstructor = () => {
                 }
 
                 <div className={ styles.wrapperInner }>
-                    { items.map((item, index) =>
+                    { items.map((item: TUniqueIngredient, index: number) =>
                         <Fragment key={ item.uuid }>
                             <ConstructorItem
                                 index={ index }
@@ -95,7 +97,7 @@ const BurgerConstructor = () => {
     }
 
     return (
-        <div className={ styles.constructor } ref={ dropTarget } style={ { opacity } }>
+        <div className={ styles.constructorWrapper } ref={ dropTarget } style={ { opacity } }>
             { renderConstructor() }
         </div>
     );

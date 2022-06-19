@@ -7,14 +7,14 @@ import {
 } from "../actions/ingredients";
 
 
-const initialState = {
+const initialState: any = {
     items: [],
     itemsRequest: false,
     itemsFailed: false,
     item: {},
 }
 
-export const ingredientReducer = (state = initialState, action) => {
+export const ingredientReducer = (state = initialState, action: any) => {
     switch (action.type) {
 
         case GET_INGREDIENTS_REQUEST: {
