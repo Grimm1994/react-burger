@@ -6,7 +6,7 @@ import {
     UPDATE_USER_SUCCESS,
     SET_LOADING,
     SIGN_IN_FAILED,
-    CREATE_USER_FAILED
+    CREATE_USER_FAILED, TUserActions
 } from "../actions/user";
 
 const initialState: any = {
@@ -17,7 +17,7 @@ const initialState: any = {
     registerErrorMessage: null,
 }
 
-export const userReducer = (state = initialState, action: any) => {
+export const userReducer = (state = initialState, action: TUserActions) => {
     switch (action.type) {
         case CREATE_USER_FAILED: {
             return {

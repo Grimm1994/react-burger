@@ -2,12 +2,12 @@ import React, { UIEvent, createRef, Fragment, useRef, useState, FC, ReactElement
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css';
 import BurgerIngredientCard from "./components/burger-ingredient-card/BurgerIngredientCard";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/hooks";
 import { TIngredient, TIngredientsTabs, TIngredientsTabsRefs } from "../../utils/types";
 
 
 const BurgerIngredients: FC = (): ReactElement => {
-    const { items } = useSelector(( store: any ) => store.ingredients);
+    const { items } = useSelector(( store ) => store.ingredients);
 
     const [activeTab, setActiveTab] = useState<string>("bun");
 

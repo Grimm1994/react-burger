@@ -32,8 +32,8 @@ export type TLocation = {
 };
 
 export type TConstructorTotal = {
-    bun: TIngredient,
-    items: TIngredient[]
+    bun: TUniqueIngredient,
+    items: ReadonlyArray<TUniqueIngredient>
 }
 
 export type TIngredientsTabs = {
@@ -60,6 +60,11 @@ export type TUseAuth = {
     user: TUserDataState,
     error: string,
     loading: boolean
+}
+
+export type TUserData = {
+    email: string,
+    name: string
 }
 
 export type TLoginState = {

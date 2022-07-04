@@ -1,20 +1,26 @@
 import {
-    SET_TOTAL_SUM,
     ADD_CONSTRUCTOR_ITEM,
+    CLEAR_CONSTRUCTOR,
     DELETE_CONSTRUCTOR_ITEM,
     SET_BUN,
-    SORT_INGREDIENTS, CLEAR_CONSTRUCTOR
+    SET_TOTAL_SUM,
+    SORT_INGREDIENTS, TCartActions
 } from "../actions/cart";
-import { TConstructorItem, TUniqueIngredient } from "../../utils/types";
+import { TIngredient, TUniqueIngredient } from "../../utils/types";
 
-
-const initialState: any = {
-    totalSum: null,
-    items: [],
-    bun: {}
+type TCartState = {
+    totalSum: number,
+    items: ReadonlyArray<TUniqueIngredient>,
+    bun: TUniqueIngredient
 }
 
-export const cartReducer = (state = initialState, action: any) => {
+const initialState: TCartState = {
+    totalSum: 0,
+    items: [],
+    bun: {} as TUniqueIngredient
+}
+
+export const cartReducer = (state = initialState, action: TCartActions): TCartState => {
     switch (action.type) {
 
         case CLEAR_CONSTRUCTOR: {

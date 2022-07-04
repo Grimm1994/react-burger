@@ -2,7 +2,7 @@ import React, { ChangeEvent, FC, ReactElement, useCallback, useState } from "rea
 import styles from "./index.module.css";
 import { Button, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, Redirect, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../services/hooks";
 import { signIn } from "../services/actions/user";
 import { useAuth } from "../services/hooks/auth";
 import { TLocation, TLoginState } from "../utils/types";

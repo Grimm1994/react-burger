@@ -5,7 +5,7 @@ import Modal from "../../../modal/Modal";
 import OrderDetails from "../../../order-details/OrderDetails";
 import { clearConstructor, setTotalSum } from "../../../../services/actions/cart";
 import { createOrder } from "../../../../services/actions/order";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../../../services/hooks";
 import { TConstructorTotal } from "../../../../utils/types";
 import { TailSpin } from "react-loader-spinner";
 import { useHistory } from "react-router-dom";
@@ -16,8 +16,8 @@ const ConstructorTotal: FC<TConstructorTotal> = ({ bun, items }): ReactElement =
     const history = useHistory();
     const { isAuth } = useAuth();
 
-    const { totalSum } = useSelector((store: any) => store.cart)
-    const { orderFailed, orderRequest } = useSelector((store: any) => store.order)
+    const { totalSum } = useSelector((store) => store.cart)
+    const { orderFailed, orderRequest } = useSelector((store) => store.order)
 
     const [isModal, setIsModal] = useState<boolean>(false);
 

@@ -37,7 +37,6 @@ export type TIngredientsActions =
     | TSetCurrentIngredient
     | TUnsetCurrentIngredient
 
-
 const getIngredientsRequest = (): TGetIngredientsRequest => {
     return {
         type: GET_INGREDIENTS_REQUEST
@@ -70,7 +69,7 @@ export const unsetCurrentIngredient = (): TUnsetCurrentIngredient => {
     }
 }
 
-export const getIngredients: AppThunk = () => ( dispatch: AppDispatch ) => {
+export const getIngredients = (): AppThunk => ( dispatch: AppDispatch ) => {
     dispatch(getIngredientsRequest());
 
     API.getIngredients("/ingredients").then(response => {

@@ -1,29 +1,48 @@
 import API from "../../utils/api";
+import { AppDispatch, AppThunk } from "../types";
 
-export const GET_ORDER_NUMBER_SUCCESS = "GET_ORDER_NUMBER";
-export const GET_ORDER_NUMBER_REQUEST = "GET_ORDER_NUMBER_REQUEST";
-export const GET_ORDER_NUMBER_FAILED = "GET_ORDER_NUMBER_FAILED";
+export const GET_ORDER_NUMBER_SUCCESS: "GET_ORDER_NUMBER" = "GET_ORDER_NUMBER";
+export const GET_ORDER_NUMBER_REQUEST: "GET_ORDER_NUMBER_REQUEST" = "GET_ORDER_NUMBER_REQUEST";
+export const GET_ORDER_NUMBER_FAILED: "GET_ORDER_NUMBER_FAILED" = "GET_ORDER_NUMBER_FAILED";
 
-const getOrderNumberRequest = () => {
+export type TGetOrderNumberRequest = {
+    readonly type: typeof GET_ORDER_NUMBER_REQUEST,
+}
+
+export type TGetOrderNumberFailed = {
+    readonly type: typeof GET_ORDER_NUMBER_FAILED,
+}
+
+export type TGetOrderNumberSuccess = {
+    readonly type: typeof GET_ORDER_NUMBER_SUCCESS,
+    readonly number: number
+}
+
+export type TOrderActions =
+    | TGetOrderNumberRequest
+    | TGetOrderNumberFailed
+    | TGetOrderNumberSuccess
+
+const getOrderNumberRequest = (): TGetOrderNumberRequest => {
     return {
         type: GET_ORDER_NUMBER_REQUEST
     }
 }
 
-const getOrderNumberFailed = () => {
+const getOrderNumberFailed = (): TGetOrderNumberFailed => {
     return {
         type: GET_ORDER_NUMBER_FAILED
     }
 }
 
-const getOrderNumberSuccess = (number: any) => {
+const getOrderNumberSuccess = ( number: number ): TGetOrderNumberSuccess => {
     return {
         type: GET_ORDER_NUMBER_SUCCESS,
         number
     }
 }
 
-export const createOrder = (order: Array<string>): any => (dispatch: any) => {
+export const createOrder = ( order: Array<string> ): AppThunk => ( dispatch: AppDispatch ) => {
     dispatch(getOrderNumberRequest())
 
     API.createOrder("/orders", order).then(response => {

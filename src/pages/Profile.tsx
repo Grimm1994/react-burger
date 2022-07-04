@@ -2,7 +2,7 @@ import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import styles from "./profile.module.css";
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../services/hooks";
 import { logout, updateUser } from "../services/actions/user";
 import ProfileNavbar from "../components/profile-navbar/ProfileNavbar";
 import { useAuth } from "../services/hooks/auth";

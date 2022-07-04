@@ -1,4 +1,5 @@
 import { TUniqueIngredient } from "../../utils/types";
+import { setCurrentIngredient } from "./ingredients";
 
 export const SET_TOTAL_SUM: "SET_TOTAL_SUM" = "SET_TOTAL_SUM";
 
@@ -39,6 +40,14 @@ export type TSortIngredients = {
 export type TClearConstructor = {
     readonly type: typeof CLEAR_CONSTRUCTOR,
 }
+
+export type TCartActions =
+    | TSetTotalSum
+    | TAddConstructorItem
+    | TSetBun
+    | TDeleteConstructorItem
+    | TSortIngredients
+    | TClearConstructor
 
 export const setTotalSum = ( sum: number ): TSetTotalSum => {
     return {

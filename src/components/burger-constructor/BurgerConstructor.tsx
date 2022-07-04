@@ -2,7 +2,7 @@ import React, { FC, Fragment, ReactElement, useCallback } from 'react';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-constructor.module.css';
 import { v4 as uuidv4 } from "uuid";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/hooks";
 import { addConstructorItem, setBun, sortIngredients } from "../../services/actions/cart";
 import { DropTargetMonitor, useDrop } from "react-dnd";
 import ConstructorItem from "./components/constructor-item/ConstructorItem";
@@ -12,7 +12,7 @@ import { TUniqueIngredient } from "../../utils/types";
 
 const BurgerConstructor: FC = (): ReactElement => {
     const dispatch = useDispatch();
-    const { items, bun } = useSelector((store: any) => store.cart);
+    const { items, bun } = useSelector((store) => store.cart);
 
 
     const moveItem = (item: TUniqueIngredient) => {

@@ -4,7 +4,7 @@ import AppHeader from "../app-header/AppHeader";
 import styles from "./app.module.css";
 import { ForgotPassword, Home, Ingredient, Login, NotFound404, Profile, Register, ResetPassword } from "../../pages"
 import ProtectedRoute from "../protected-route/ProtectedRoute";
-import { useDispatch, useSelector } from "../../services/hooks/hooks";
+import { useDispatch, useSelector } from "../../services/hooks";
 import { getIngredients, unsetCurrentIngredient } from "../../services/actions/ingredients";
 import Modal from "../modal/Modal";
 import { TLocation } from "../../utils/types";

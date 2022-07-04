@@ -1,7 +1,7 @@
 import {
     GET_ORDER_NUMBER_SUCCESS,
     GET_ORDER_NUMBER_REQUEST,
-    GET_ORDER_NUMBER_FAILED,
+    GET_ORDER_NUMBER_FAILED, TOrderActions,
 } from "../actions/order";
 
 
@@ -13,7 +13,7 @@ const initialState: any = {
     },
 }
 
-export const orderReducer = (state = initialState, action: any) => {
+export const orderReducer = (state = initialState, action: TOrderActions) => {
     switch (action.type) {
 
         case GET_ORDER_NUMBER_REQUEST: {

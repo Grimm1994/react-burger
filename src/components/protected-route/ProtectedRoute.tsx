@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Redirect, Route } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../services/hooks";
 import { getUser } from "../../services/actions/user";
 import { useAuth } from "../../services/hooks/auth";
 import { TProtectedRoute } from "../../utils/types";
