@@ -16,6 +16,10 @@ export type TIngredient = {
     __v?: number
 };
 
+export type TOrder = {
+    number: number
+}
+
 export type TUniqueIngredient = {
     uuid: string
 } & TIngredient
@@ -57,7 +61,7 @@ export type TProtectedRoute = {
 export type TUseAuth = {
     isAuth: () => boolean,
     token: string | null,
-    user: TUserDataState,
+    user: TUserData,
     error: string,
     loading: boolean
 }
@@ -93,6 +97,24 @@ export type TUserDataEditAbleState = {
 
 export type TCookieProps = {
     [name: string]: any
+}
+
+export type TWsFeedOrder = {
+    _id: string,
+    ingredients: string[],
+    status: 'done' | 'pending' | 'created',
+    name: string,
+    number: number,
+    createdAt?: string,
+    updateAt?: string,
+}
+
+export type TFeedState = {
+    wsConnected: boolean,
+    success: boolean,
+    total: number,
+    totalToday: number,
+    orders: TWsFeedOrder[]
 }
 
 export type TModalOverlay = Omit<TModal, 'children'>

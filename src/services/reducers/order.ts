@@ -3,17 +3,21 @@ import {
     GET_ORDER_NUMBER_REQUEST,
     GET_ORDER_NUMBER_FAILED, TOrderActions,
 } from "../actions/order";
+import { TOrder } from "../../utils/types";
 
-
-const initialState: any = {
-    orderRequest: false,
-    orderFailed: false,
-    order: {
-        number: null,
-    },
+type TOrderState = {
+    orderRequest: boolean,
+    orderFailed: boolean,
+    order: TOrder
 }
 
-export const orderReducer = (state = initialState, action: TOrderActions) => {
+const initialState: TOrderState = {
+    orderRequest: false,
+    orderFailed: false,
+    order: {} as TOrder,
+}
+
+export const orderReducer = (state = initialState, action: TOrderActions): TOrderState => {
     switch (action.type) {
 
         case GET_ORDER_NUMBER_REQUEST: {

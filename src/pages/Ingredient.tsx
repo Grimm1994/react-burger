@@ -12,10 +12,12 @@ const Ingredient = () => {
     const dispatch = useDispatch();
     const { items, itemsRequest, item } = useSelector((store) => store.ingredients);
     const { id } = useParams<{id?: string}>();
-    const ingredient = (items) ? items.find((item: TIngredient) => item._id === id) : null;
+    const ingredient = items.find((item: TIngredient) => item._id === id);
 
     useEffect(() => {
-        dispatch(setCurrentIngredient(ingredient))
+        if (ingredient) {
+            dispatch(setCurrentIngredient(ingredient))
+        }
     }, [ingredient, dispatch])
 
     const render = (): ReactElement => {

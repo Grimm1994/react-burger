@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import React, { ChangeEvent, FC, ReactElement, useCallback, useEffect, useState } from 'react';
 import styles from "./profile.module.css";
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useHistory } from "react-router-dom";
@@ -9,7 +9,7 @@ import { useAuth } from "../services/hooks/auth";
 import { Rings } from "react-loader-spinner";
 import { TUserDataEditAbleState, TUserDataState } from "../utils/types";
 
-const Profile = () => {
+const Profile: FC = (): ReactElement => {
     const { user, loading } = useAuth();
     const history = useHistory();
 

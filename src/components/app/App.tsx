@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "../../services/hooks";
 import { getIngredients, unsetCurrentIngredient } from "../../services/actions/ingredients";
 import Modal from "../modal/Modal";
 import { TLocation } from "../../utils/types";
+import Feed from "../../pages/Feed";
 
 const App: FC = (): ReactElement => {
     const location = useLocation<TLocation>();
@@ -51,6 +52,9 @@ const App: FC = (): ReactElement => {
                     </ProtectedRoute>
                     <Route path="/ingredients/:id" exact={ true }>
                         <Ingredient/>
+                    </Route>
+                    <Route path="/feed" exact={ true }>
+                        <Feed/>
                     </Route>
                     <Route>
                         <NotFound404/>

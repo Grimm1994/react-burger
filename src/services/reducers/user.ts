@@ -8,16 +8,23 @@ import {
     SIGN_IN_FAILED,
     CREATE_USER_FAILED, TUserActions
 } from "../actions/user";
+import { TUserData } from "../../utils/types";
 
-const initialState: any = {
-    user: null,
-    loading: false,
-
-    loginErrorMessage: null,
-    registerErrorMessage: null,
+type TUserState = {
+    user: TUserData,
+    loading: boolean,
+    loginErrorMessage: string,
+    registerErrorMessage: string
 }
 
-export const userReducer = (state = initialState, action: TUserActions) => {
+const initialState: TUserState = {
+    user: null as any,
+    loading: false,
+    loginErrorMessage: "",
+    registerErrorMessage: "",
+}
+
+export const userReducer = (state = initialState, action: TUserActions): TUserState => {
     switch (action.type) {
         case CREATE_USER_FAILED: {
             return {
@@ -50,7 +57,7 @@ export const userReducer = (state = initialState, action: TUserActions) => {
         case LOGOUT: {
             return {
                 ...state,
-                user: null
+                user: null as any
             }
         }
 
@@ -65,7 +72,7 @@ export const userReducer = (state = initialState, action: TUserActions) => {
         case CREATE_USER_SUCCESS: {
             return {
                 ...state,
-                registerErrorMessage: null,
+                registerErrorMessage: "",
                 user: action.user
             }
         }
@@ -73,7 +80,7 @@ export const userReducer = (state = initialState, action: TUserActions) => {
         case SIGN_IN_SUCCESS: {
             return {
                 ...state,
-                loginErrorMessage: null,
+                loginErrorMessage: "",
                 user: action.user
             }
         }

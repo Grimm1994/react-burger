@@ -20,7 +20,7 @@ const HeaderMenu: FC = (): ReactElement => {
                 </li>
                 <li className="text_type_main-default pt-4 pb-4 pr-5 pl-5">
                     <NavLink
-                        to="/orders"
+                        to="/feed"
                         className={ styles.item }
                         activeClassName={ styles.active }
                     >
