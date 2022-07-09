@@ -21,8 +21,6 @@ const ProtectedRoute: FC<TProtectedRoute> = ({ children, ...rest }) => {
         init();
     }, []);
 
-    console.log(user);
-
     if (!isUserLoaded) {
         return null;
     }
