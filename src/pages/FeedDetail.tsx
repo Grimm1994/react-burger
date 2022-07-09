@@ -38,7 +38,7 @@ const FeedDetail: FC = (): ReactElement => {
     if (order && items.length > 0) {
         const { number, createdAt, name, ingredients, status } = order;
         const orderIngredients = getIngredients(ingredients, items);
-        const orderSum = orderIngredients.reduce(( acc, current ) => acc += current!.price, 0)
+        const orderSum = orderIngredients.reduce(( acc, current ) => acc += current.price, 0)
         const uniqueIngredients = orderIngredients.filter((v, i, a) => a.indexOf(v) === i);
 
         const orderUniqueIngredients = uniqueIngredients.map(e => {

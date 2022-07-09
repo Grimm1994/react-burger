@@ -14,7 +14,7 @@ const FeedOrderCard: FC<{ order: TWsFeedOrder }> = ( { order } ): ReactElement =
     let location = useLocation();
     const orderIngredients = getIngredients(ingredients, items);
 
-    const orderSum = orderIngredients.reduce(( acc, current ) => acc += current!.price, 0)
+    const orderSum = orderIngredients.reduce(( acc, current ) => acc += current.price, 0)
     const profileFeedRoute = location.pathname.includes("profile/orders")
 
     const openModal = (): void => {
