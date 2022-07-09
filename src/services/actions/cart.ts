@@ -1,5 +1,4 @@
 import { TUniqueIngredient } from "../../utils/types";
-import { setCurrentIngredient } from "./ingredients";
 
 export const SET_TOTAL_SUM: "SET_TOTAL_SUM" = "SET_TOTAL_SUM";
 

@@ -48,22 +48,3 @@ export const wsConnectionClosed = (): TWsConnectionClosed => {
         type: WS_CONNECTION_CLOSED
     }
 }
-
-export const wsConnectionError = (): TWsConnectionError => {
-    return {
-        type: WS_CONNECTION_ERROR
-    }
-}
-
-export const wsConnectionSuccess = (): TWsConnectionSuccess => {
-    return {
-        type: WS_CONNECTION_SUCCESS
-    }
-}
-
-export const wsGetMessage = ( payload: Omit<TFeedState, 'wsConnected'> ): TWsGetMessage => {
-    return {
-        type: WS_GET_MESSAGE,
-        payload
-    }
-}

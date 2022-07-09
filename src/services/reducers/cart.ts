@@ -4,9 +4,10 @@ import {
     DELETE_CONSTRUCTOR_ITEM,
     SET_BUN,
     SET_TOTAL_SUM,
-    SORT_INGREDIENTS, TCartActions
+    SORT_INGREDIENTS,
+    TCartActions
 } from "../actions/cart";
-import { TIngredient, TUniqueIngredient } from "../../utils/types";
+import { TUniqueIngredient } from "../../utils/types";
 
 type TCartState = {
     totalSum: number,

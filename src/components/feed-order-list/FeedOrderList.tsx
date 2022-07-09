@@ -7,6 +7,8 @@ import { TWsFeedOrder } from "../../utils/types";
 const FeedOrderList: FC = (): ReactElement => {
     const { orders, wsConnected, success } = useSelector(store => store.feed);
 
+    orders.sort(( a, b ) => b.number - a.number);
+
     return (
         <>
             { wsConnected && success ? (

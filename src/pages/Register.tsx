@@ -8,7 +8,7 @@ import { useAuth } from "../services/hooks/auth";
 import { TRegisterState } from "../utils/types";
 
 const Register: FC = (): ReactElement => {
-    const { registerErrorMessage } = useSelector((store: any) => store.user);
+    const { registerErrorMessage } = useSelector((store) => store.user);
     const { isAuth } = useAuth();
     const history = useHistory();
     const [form, setValue] = useState<TRegisterState>({ name: "", email: "", password: "" });

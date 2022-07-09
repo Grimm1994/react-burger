@@ -1,5 +1,6 @@
 import API from "../../utils/api";
 import { TLoginState, TRegisterState, TUserDataState, TUserData } from "../../utils/types";
+import { AppDispatch, AppThunk } from "../types";
 
 export const CREATE_USER_SUCCESS: "CREATE_USER_SUCCESS" = "CREATE_USER_SUCCESS";
 export const CREATE_USER_FAILED: "CREATE_USER_FAILED" = "CREATE_USER_FAILED";
@@ -112,7 +113,7 @@ const signInSuccess = ( user: TUserData ): TSignInSuccess => {
     }
 }
 
-export const logout = (): any => ( dispatch: any ) => {
+export const logout = (): AppThunk => ( dispatch: AppDispatch ) => {
     API.logout("/auth/logout").then(response => {
         if (response.success) {
             dispatch(logoutAction());
@@ -125,7 +126,7 @@ export const logout = (): any => ( dispatch: any ) => {
     })
 }
 
-export const getUser = (): any => ( dispatch: any ) => {
+export const getUser = (): AppThunk => ( dispatch: AppDispatch ) => {
     dispatch(setLoading())
     API.getUser("/auth/user").then(response => {
         if (response.success) {
@@ -142,7 +143,7 @@ export const getUser = (): any => ( dispatch: any ) => {
     })
 }
 
-export const updateUser = ( data: TUserDataState ): any => ( dispatch: any ) => {
+export const updateUser = ( data: TUserDataState ): AppThunk => ( dispatch: AppDispatch ) => {
     API.updateUser("/auth/user", data).then(response => {
         if (response.success) {
             dispatch(updateUserSuccess(response.user));
@@ -158,7 +159,7 @@ export const updateUser = ( data: TUserDataState ): any => ( dispatch: any ) => 
     })
 }
 
-export const createUser = ( data: TRegisterState ): any => ( dispatch: any ) => {
+export const createUser = ( data: TRegisterState ): AppThunk => ( dispatch: AppDispatch ) => {
     API.createUser("/auth/register", data).then(response => {
         if (response.success) {
 
@@ -171,7 +172,7 @@ export const createUser = ( data: TRegisterState ): any => ( dispatch: any ) => 
     })
 }
 
-export const signIn = ( data: TLoginState ): any => ( dispatch: any ) => {
+export const signIn = ( data: TLoginState ): AppThunk => ( dispatch: AppDispatch ) => {
     API.signIn("/auth/login", data).then(response => {
         if (response.success) {
             saveTokens(response);

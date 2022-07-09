@@ -9,7 +9,7 @@ import { TLocation, TLoginState } from "../utils/types";
 
 const Login: FC = (): ReactElement => {
     const [form, setValue] = useState<TLoginState>({ email: "", password: "" });
-    const { loginErrorMessage } = useSelector((store: any) => store.user);
+    const { loginErrorMessage } = useSelector((store) => store.user);
     const dispatch = useDispatch();
     const { isAuth } = useAuth();
     const location = useLocation<TLocation>();

@@ -1,5 +1,11 @@
 import { Location } from "history";
 import { ReactNode } from "react";
+import {
+    WS_CONNECTION_CLOSED,
+    WS_CONNECTION_ERROR,
+    WS_CONNECTION_START,
+    WS_CONNECTION_SUCCESS, WS_GET_MESSAGE
+} from "../services/actions/ws";
 
 export type TIngredient = {
     _id: string,
@@ -95,10 +101,6 @@ export type TUserDataEditAbleState = {
     [name: string]: boolean,
 }
 
-export type TCookieProps = {
-    [name: string]: any
-}
-
 export type TWsFeedOrder = {
     _id: string,
     ingredients: string[],
@@ -115,6 +117,14 @@ export type TFeedState = {
     total: number,
     totalToday: number,
     orders: TWsFeedOrder[]
+}
+
+export type TSocketMiddlewareActions = {
+    readonly onInit: typeof WS_CONNECTION_START
+    readonly onOpen: typeof WS_CONNECTION_SUCCESS
+    readonly onError: typeof WS_CONNECTION_ERROR
+    readonly onClose: typeof WS_CONNECTION_CLOSED
+    readonly onMessage: typeof WS_GET_MESSAGE
 }
 
 export type TModalOverlay = Omit<TModal, 'children'>

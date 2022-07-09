@@ -125,5 +125,5 @@ const checkUserResponse = (response: Response) => {
         return response.json();
     }
 
-    return Promise.reject(response.text().then(async (res: any) => JSON.parse(await res)));
+    return Promise.reject(response.text().then(res => JSON.parse(res)));
 };
