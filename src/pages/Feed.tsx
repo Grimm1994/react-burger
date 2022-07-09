@@ -22,7 +22,7 @@ const Feed: FC = (): ReactElement => {
                 <h1 className={ `text text_type_main-large mb-5 ${ styles.title }` }>Лента заказов</h1>
                 <FeedOrderList/>
             </div>
-            <div className={`${ styles.container } mt-15` }>
+            <div className={ styles.container }>
                 <FeedOrderInfo/>
             </div>
         </>

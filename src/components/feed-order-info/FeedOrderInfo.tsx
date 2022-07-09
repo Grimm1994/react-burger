@@ -10,7 +10,7 @@ const FeedOrderInfo: FC = (): ReactElement => {
 
     return (
         <>
-            <div className={ styles.containerInner }>
+            <div className={`${ styles.containerInner } mt-15` }>
                 <div className={ styles.wrapper }>
                     <h2 className="text text_type_main-medium">Готовы:</h2>
                     <div className={ `${ styles.wrapperInner } mt-6` }>
