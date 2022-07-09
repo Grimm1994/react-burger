@@ -18,7 +18,6 @@ const ForgotPassword: FC = (): ReactElement => {
             API.resetPassword("/password-reset", value)
                 .then(response => {
                     if (response.success) {
-                        console.log(response);
                         history.push({
                             pathname: "/reset-password",
                             state: true

@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import styles from "./burger-ingredient-card.module.css";
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { TIngredient } from "../../../../utils/types";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../../../services/hooks";
 import { setCurrentIngredient } from "../../../../services/actions/ingredients";
 import { useDrag } from "react-dnd";
 import { useHistory, useLocation } from "react-router-dom";
@@ -12,7 +12,7 @@ const BurgerIngredientCard: FC<{ item: TIngredient }> = ({ item }) => {
     const history = useHistory();
     let location = useLocation();
 
-    const constructorItems = useSelector((store: any) => [store.cart.bun, store.cart.bun, ...store.cart.items]);
+    const constructorItems = useSelector((store) => [store.cart.bun, store.cart.bun, ...store.cart.items]);
 
 
     const count: number = constructorItems.filter(constructorItem => constructorItem._id === item._id).length;

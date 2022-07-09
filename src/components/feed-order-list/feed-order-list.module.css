@@ -1,0 +1,6 @@
+.wrapper {
+    flex-grow: 1;
+    overflow-y: auto;
+    position: relative;
+    max-width: 840px;
+}

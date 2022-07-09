@@ -2,7 +2,7 @@ import React, { FC, ReactElement, useRef } from 'react';
 import styles from "./constructor-item.module.css";
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { deleteConstructorItem } from "../../../../services/actions/cart";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../../../services/hooks";
 import { TConstructorItem } from "../../../../utils/types";
 import { useDrag, useDrop } from "react-dnd";
 

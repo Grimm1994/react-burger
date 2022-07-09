@@ -1,5 +1,11 @@
 import { Location } from "history";
 import { ReactNode } from "react";
+import {
+    WS_CONNECTION_CLOSED,
+    WS_CONNECTION_ERROR,
+    WS_CONNECTION_START,
+    WS_CONNECTION_SUCCESS, WS_GET_MESSAGE
+} from "../services/actions/ws";
 
 export type TIngredient = {
     _id: string,
@@ -15,6 +21,10 @@ export type TIngredient = {
     image_large?: string,
     __v?: number
 };
+
+export type TOrder = {
+    number: number
+}
 
 export type TUniqueIngredient = {
     uuid: string
@@ -32,8 +42,8 @@ export type TLocation = {
 };
 
 export type TConstructorTotal = {
-    bun: TIngredient,
-    items: TIngredient[]
+    bun: TUniqueIngredient,
+    items: ReadonlyArray<TUniqueIngredient>
 }
 
 export type TIngredientsTabs = {
@@ -57,9 +67,14 @@ export type TProtectedRoute = {
 export type TUseAuth = {
     isAuth: () => boolean,
     token: string | null,
-    user: TUserDataState,
+    user: TUserData,
     error: string,
     loading: boolean
+}
+
+export type TUserData = {
+    email: string,
+    name: string
 }
 
 export type TLoginState = {
@@ -86,8 +101,30 @@ export type TUserDataEditAbleState = {
     [name: string]: boolean,
 }
 
-export type TCookieProps = {
-    [name: string]: any
+export type TWsFeedOrder = {
+    _id: string,
+    ingredients: string[],
+    status: 'done' | 'pending' | 'created',
+    name: string,
+    number: number,
+    createdAt?: string,
+    updateAt?: string,
+}
+
+export type TFeedState = {
+    wsConnected: boolean,
+    success: boolean,
+    total: number,
+    totalToday: number,
+    orders: TWsFeedOrder[]
+}
+
+export type TSocketMiddlewareActions = {
+    readonly onInit: typeof WS_CONNECTION_START
+    readonly onOpen: typeof WS_CONNECTION_SUCCESS
+    readonly onError: typeof WS_CONNECTION_ERROR
+    readonly onClose: typeof WS_CONNECTION_CLOSED
+    readonly onMessage: typeof WS_GET_MESSAGE
 }
 
 export type TModalOverlay = Omit<TModal, 'children'>

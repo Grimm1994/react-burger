@@ -1,0 +1,106 @@
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-self: center;
+}
+
+.wrapperInner {
+    display: flex;
+    flex-direction: column;
+    max-width: 639px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.number {
+    text-align: center;
+}
+
+.colorGreen {
+    color: #00CCCC;
+}
+
+.ingredientsWrapper {
+    overflow: auto;
+    margin-top: 24px;
+    max-height: 304px;
+    margin-right: -21px;
+}
+
+.ingredientWrapper {
+    display: flex;
+    align-items: center;
+    margin-right: 14px;
+    max-width: 639px;
+}
+
+.ingredientWrapper:not(:last-child) {
+    margin-bottom: 24px;
+}
+
+.title {
+    flex-grow: 1;
+}
+
+.imageWrapper {
+    flex-grow: 0;
+    position: relative;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.imageWrapper::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(128,26,178,1) 0%, rgba(76,76,255,1) 100%);
+    z-index: 1;
+}
+
+.imageWrapper::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 59px;
+    height: 59px;
+    background: #131316;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.imageWrapper img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 56px;
+    height: 56px;
+    z-index: 4;
+    object-fit: cover;
+}
+
+.loaderWrapper {
+    justify-content: center;
+    width: 100%;
+    align-self: center;
+}
+
+.price {
+    display: flex;
+    justify-self: flex-end;
+    font-size: 28px;
+}
+
+.orderInfo {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+}

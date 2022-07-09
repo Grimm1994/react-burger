@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect } from 'react';
 import styles from "./ingredient.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../services/hooks";
 import { useParams } from "react-router-dom";
 import IngredientDetails from "../components/ingredient-details/IngredientDetails";
 import { NotFound404 } from "./index";
@@ -10,12 +10,14 @@ import { TIngredient } from "../utils/types";
 
 const Ingredient = () => {
     const dispatch = useDispatch();
-    const { items, itemsRequest, item } = useSelector((store: any) => store.ingredients);
+    const { items, itemsRequest, item } = useSelector((store) => store.ingredients);
     const { id } = useParams<{id?: string}>();
-    const ingredient = (items) ? items.find((item: TIngredient) => item._id === id) : null;
+    const ingredient = items.find((item: TIngredient) => item._id === id);
 
     useEffect(() => {
-        dispatch(setCurrentIngredient(ingredient))
+        if (ingredient) {
+            dispatch(setCurrentIngredient(ingredient))
+        }
     }, [ingredient, dispatch])
 
     const render = (): ReactElement => {

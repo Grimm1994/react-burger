@@ -1,75 +1,119 @@
 import API from "../../utils/api";
-import { TLoginState, TRegisterState, TUserDataState } from "../../utils/types";
+import { TLoginState, TRegisterState, TUserDataState, TUserData } from "../../utils/types";
+import { AppDispatch, AppThunk } from "../types";
 
-export const CREATE_USER_SUCCESS = "CREATE_USER_SUCCESS";
-export const CREATE_USER_FAILED = "CREATE_USER_FAILED";
+export const CREATE_USER_SUCCESS: "CREATE_USER_SUCCESS" = "CREATE_USER_SUCCESS";
+export const CREATE_USER_FAILED: "CREATE_USER_FAILED" = "CREATE_USER_FAILED";
+export const SIGN_IN_SUCCESS: "SIGN_IN_SUCCESS" = "SIGN_IN_SUCCESS";
+export const SIGN_IN_FAILED: "SIGN_IN_FAILED" = "SIGN_IN_FAILED";
+export const GET_USER_SUCCESS: "GET_USER_SUCCESS" = "GET_USER_SUCCESS";
+export const UPDATE_USER_SUCCESS: "UPDATE_USER_SUCCESS" = "UPDATE_USER_SUCCESS";
+export const LOGOUT: "LOGOUT" = "LOGOUT";
+export const SET_LOADING: "SET_LOADING" = "SET_LOADING";
 
-export const SIGN_IN_SUCCESS = "SIGN_IN_SUCCESS";
-export const SIGN_IN_FAILED = "SIGN_IN_FAILED";
+type TLogoutAction = {
+    readonly type: typeof LOGOUT
+}
 
-export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
+type TSetLoading = {
+    readonly type: typeof SET_LOADING
+}
 
-export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS";
+type TGetUserSuccess = {
+    readonly type: typeof GET_USER_SUCCESS,
+    readonly user: TUserData
+}
 
-export const LOGOUT = "LOGOUT";
+type TUpdateUserSuccess = {
+    readonly type: typeof UPDATE_USER_SUCCESS,
+    readonly user: TUserData
+}
 
-export const SET_LOADING = "SET_LOADING";
+type TCreateUserSuccess = {
+    readonly type: typeof CREATE_USER_SUCCESS,
+    readonly user: TUserData
+}
 
-const logoutAction = (): any => {
+type TCreateUserFailed = {
+    readonly type: typeof CREATE_USER_FAILED,
+    readonly message: string
+}
+
+type TSignInFailed = {
+    readonly type: typeof SIGN_IN_FAILED,
+    readonly message: string
+}
+
+type TSignInSuccess = {
+    readonly type: typeof SIGN_IN_SUCCESS,
+    readonly user: TUserData
+}
+
+export type TUserActions =
+    | TLogoutAction
+    | TSetLoading
+    | TGetUserSuccess
+    | TUpdateUserSuccess
+    | TCreateUserSuccess
+    | TCreateUserFailed
+    | TSignInFailed
+    | TSignInSuccess
+
+const logoutAction = (): TLogoutAction => {
     return {
         type: LOGOUT
     }
 }
 
-const setLoading = (): any => {
+const setLoading = (): TSetLoading => {
     return {
         type: SET_LOADING
     }
 }
 
-const getUserSuccess = (user: Array<any>): any => {
+const getUserSuccess = ( user: TUserData ): TGetUserSuccess => {
     return {
         type: GET_USER_SUCCESS,
         user
     }
 }
 
-const updateUserSuccess = (user: Array<any>): any => {
+const updateUserSuccess = ( user: TUserData ): TUpdateUserSuccess => {
     return {
         type: UPDATE_USER_SUCCESS,
         user
     }
 }
 
-const createUserSuccess = (user: Array<any>): any => {
+const createUserSuccess = ( user: TUserData ): TCreateUserSuccess => {
     return {
         type: CREATE_USER_SUCCESS,
         user
     }
 }
 
-const createUserFailed = (message: string): any => {
+const createUserFailed = ( message: string ): TCreateUserFailed => {
     return {
         type: CREATE_USER_FAILED,
         message
     }
 }
 
-const signInFailed = (message: string): any => {
+const signInFailed = ( message: string ): TSignInFailed => {
     return {
         type: SIGN_IN_FAILED,
         message
     }
 }
 
-const signInSuccess = (user: Array<any>): any => {
+const signInSuccess = ( user: TUserData ): TSignInSuccess => {
     return {
         type: SIGN_IN_SUCCESS,
         user
     }
 }
 
-export const logout = (): any => (dispatch: any) => {
+export const logout = (): AppThunk => ( dispatch: AppDispatch ) => {
     API.logout("/auth/logout").then(response => {
         if (response.success) {
             dispatch(logoutAction());
@@ -82,7 +126,7 @@ export const logout = (): any => (dispatch: any) => {
     })
 }
 
-export const getUser = (): any => (dispatch: any) => {
+export const getUser = (): AppThunk => ( dispatch: AppDispatch ) => {
     dispatch(setLoading())
     API.getUser("/auth/user").then(response => {
         if (response.success) {
@@ -99,7 +143,7 @@ export const getUser = (): any => (dispatch: any) => {
     })
 }
 
-export const updateUser = (data: TUserDataState): any => (dispatch: any) => {
+export const updateUser = ( data: TUserDataState ): AppThunk => ( dispatch: AppDispatch ) => {
     API.updateUser("/auth/user", data).then(response => {
         if (response.success) {
             dispatch(updateUserSuccess(response.user));
@@ -115,7 +159,7 @@ export const updateUser = (data: TUserDataState): any => (dispatch: any) => {
     })
 }
 
-export const createUser = (data: TRegisterState): any => (dispatch: any) => {
+export const createUser = ( data: TRegisterState ): AppThunk => ( dispatch: AppDispatch ) => {
     API.createUser("/auth/register", data).then(response => {
         if (response.success) {
 
@@ -128,7 +172,7 @@ export const createUser = (data: TRegisterState): any => (dispatch: any) => {
     })
 }
 
-export const signIn = (data: TLoginState): any => (dispatch: any) => {
+export const signIn = ( data: TLoginState ): AppThunk => ( dispatch: AppDispatch ) => {
     API.signIn("/auth/login", data).then(response => {
         if (response.success) {
             saveTokens(response);
@@ -140,7 +184,7 @@ export const signIn = (data: TLoginState): any => (dispatch: any) => {
     })
 }
 
-const updateToken = async (err: { message: string }, callback: () => void) => {
+export const updateToken = async ( err: { message: string }, callback: () => void ) => {
     const res = await err;
 
     if (res.message === "jwt expired") {
@@ -158,8 +202,8 @@ const updateToken = async (err: { message: string }, callback: () => void) => {
     }
 }
 
-const saveTokens = (response: any) => {
-    let accessToken;
+const saveTokens = ( response: { [name: string]: string } ) => {
+    let accessToken = "";
     if (response.accessToken.indexOf("Bearer") === 0) {
         accessToken = response.accessToken.split("Bearer ")[1];
     }
