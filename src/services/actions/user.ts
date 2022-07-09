@@ -183,7 +183,7 @@ export const signIn = ( data: TLoginState ): any => ( dispatch: any ) => {
     })
 }
 
-const updateToken = async ( err: { message: string }, callback: () => void ) => {
+export const updateToken = async ( err: { message: string }, callback: () => void ) => {
     const res = await err;
 
     if (res.message === "jwt expired") {
@@ -201,8 +201,8 @@ const updateToken = async ( err: { message: string }, callback: () => void ) => 
     }
 }
 
-const saveTokens = ( response: any ) => {
-    let accessToken;
+const saveTokens = ( response: { [name: string]: string } ) => {
+    let accessToken = "";
     if (response.accessToken.indexOf("Bearer") === 0) {
         accessToken = response.accessToken.split("Bearer ")[1];
     }

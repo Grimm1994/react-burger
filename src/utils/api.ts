@@ -6,6 +6,10 @@ const API = {
         return await fetch(`${ BASE_URL }${ url }`).then(checkResponse)
     },
 
+    getOrder: async (url: string) => {
+        return await fetch(`${ BASE_URL }${ url }`).then(checkResponse)
+    },
+
     createOrder: async (url: string, data: Array<string>) => {
         return await fetch(`${ BASE_URL }${ url }`, {
             method: "POST",
@@ -13,9 +17,10 @@ const API = {
                 ingredients: data
             }),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${ localStorage.getItem("token") }`
             }
-        }).then(checkResponse)
+        }).then(checkUserResponse)
     },
 
     createUser: async (url: string, data: TRegisterState) => {
@@ -81,7 +86,7 @@ const API = {
             headers: {
                 "Content-Type": "application/json",
             },
-        }).then(checkResponse)
+        }).then(checkUserResponse)
     },
 
     getUser: async (url: string) => {

@@ -4,11 +4,12 @@ export const WS_CONNECTION_START: "WS_CONNECTION_START" = "WS_CONNECTION_START";
 export const WS_CONNECTION_CLOSED: "WS_CONNECTION_CLOSED" = "WS_CONNECTION_CLOSED";
 export const WS_CONNECTION_ERROR: "WS_CONNECTION_ERROR" = "WS_CONNECTION_ERROR";
 export const WS_CONNECTION_SUCCESS: "WS_CONNECTION_SUCCESS" = "WS_CONNECTION_SUCCESS";
-export const WS_GET_FEED: "WS_GET_FEED" = "WS_GET_FEED";
+export const WS_GET_MESSAGE: "WS_GET_MESSAGE" = "WS_GET_MESSAGE";
 
 
 export type TWsConnectionStart = {
     readonly type: typeof WS_CONNECTION_START,
+    readonly queryString: string
 }
 
 export type TWsConnectionClosed = {
@@ -23,21 +24,22 @@ export type TWsConnectionSuccess = {
     readonly type: typeof WS_CONNECTION_SUCCESS,
 }
 
-export type TWsGetFeed = {
-    readonly type: typeof WS_GET_FEED,
-    readonly payload: Pick<TFeedState, 'orders'>;
+export type TWsGetMessage = {
+    readonly type: typeof WS_GET_MESSAGE,
+    readonly payload: Omit<TFeedState, 'wsConnected'>;
 }
 
-export type TWsFeedActions =
+export type TWsActions =
     | TWsConnectionStart
     | TWsConnectionClosed
     | TWsConnectionError
     | TWsConnectionSuccess
-    | TWsGetFeed
+    | TWsGetMessage
 
-export const wsConnectionStart = (): TWsConnectionStart => {
+export const wsConnectionStart = (queryString: string): TWsConnectionStart => {
     return {
-        type: WS_CONNECTION_START
+        type: WS_CONNECTION_START,
+        queryString
     }
 }
 
@@ -59,9 +61,9 @@ export const wsConnectionSuccess = (): TWsConnectionSuccess => {
     }
 }
 
-export const wsGetFeed = ( payload: Pick<TFeedState, 'orders'> ): TWsGetFeed => {
+export const wsGetMessage = ( payload: Omit<TFeedState, 'wsConnected'> ): TWsGetMessage => {
     return {
-        type: WS_GET_FEED,
+        type: WS_GET_MESSAGE,
         payload
     }
 }

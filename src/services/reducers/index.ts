@@ -3,7 +3,7 @@ import { ingredientReducer } from "./ingredients";
 import { orderReducer } from "./order";
 import { cartReducer } from "./cart";
 import { userReducer } from "./user";
-import { feedReducer } from "./feed";
+import { feedReducer } from "./ws";
 
 export const rootReducer = combineReducers({
     ingredients: ingredientReducer,

@@ -1,5 +1,6 @@
 import API from "../../utils/api";
 import { AppDispatch, AppThunk } from "../types";
+import { updateToken } from "./user";
 
 export const GET_ORDER_NUMBER_SUCCESS: "GET_ORDER_NUMBER" = "GET_ORDER_NUMBER";
 export const GET_ORDER_NUMBER_REQUEST: "GET_ORDER_NUMBER_REQUEST" = "GET_ORDER_NUMBER_REQUEST";
@@ -51,7 +52,15 @@ export const createOrder = ( order: Array<string> ): AppThunk => ( dispatch: App
         } else {
             dispatch(getOrderNumberFailed());
         }
-    }).catch(err => {
-        dispatch(getOrderNumberFailed());
+    }).catch(async err => {
+        await updateToken(err, () => {
+            API.createOrder("/orders", order).then(response => {
+                if (response.success) {
+                    dispatch(getOrderNumberSuccess(response.order.number));
+                } else {
+                    dispatch(getOrderNumberFailed());
+                }
+            })
+        });
     })
 }

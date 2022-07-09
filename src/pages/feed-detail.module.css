@@ -1,32 +1,54 @@
-.card {
-    cursor: pointer;
-    border-radius: 40px;
-    background-color: #1C1C21;
-    padding: 24px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04), 0 0 2px rgba(0, 0, 0, 0.06), 0 0 1px rgba(0, 0, 0, 0.04);
-}
-.card:not(:last-child) {
-    margin-bottom: 16px;
-}
-.cardHeader {
+.wrapper {
     display: flex;
-    justify-content: space-between;
+    width: 100%;
+    align-self: center;
+}
+
+.wrapperInner {
+    display: flex;
+    flex-direction: column;
+    max-width: 639px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.number {
+    text-align: center;
+}
+
+.colorGreen {
+    color: #00CCCC;
 }
 
 .ingredientsWrapper {
+    overflow: auto;
+    margin-top: 24px;
+    max-height: 304px;
+    margin-right: -21px;
+}
+
+.ingredientWrapper {
     display: flex;
+    align-items: center;
+    margin-right: 14px;
+    max-width: 639px;
+}
+
+.ingredientWrapper:not(:last-child) {
+    margin-bottom: 24px;
+}
+
+.title {
+    flex-grow: 1;
 }
 
 .imageWrapper {
+    flex-grow: 0;
     position: relative;
     width: 64px;
     height: 64px;
     border-radius: 50%;
     overflow: hidden;
-}
-
-.imageWrapper:not(:last-child) {
-    margin-right: -15px;
 }
 
 .imageWrapper::before {
@@ -65,33 +87,20 @@
     object-fit: cover;
 }
 
+.loaderWrapper {
+    justify-content: center;
+    width: 100%;
+    align-self: center;
+}
+
 .price {
     display: flex;
+    justify-self: flex-end;
     font-size: 28px;
-    margin-bottom: 8px;
 }
 
-.green {
-    color: #00CCCC;
-}
-
-.itemWrapper {
-    margin-top: 24px;
+.orderInfo {
+    margin-top: 40px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-}
-
-.ingredientNumber {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate3d(-50%, -50%, 0);
-    width: 59px;
-    height: 59px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 4;
 }

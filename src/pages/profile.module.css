@@ -2,15 +2,7 @@
     display: flex;
     align-self: center;
     width: 100%;
-}
-
-.form :global(.input) {
-    width: 480px;
-}
-
-.btnWrapper {
-    display: flex;
-    justify-content: flex-end;
+    height: 100%;
 }
 
 .loaderWrapper {

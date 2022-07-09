@@ -51,10 +51,9 @@ const ConstructorTotal: FC<TConstructorTotal> = ({ bun, items }): ReactElement =
         ]
 
         dispatch(createOrder(orderData));
-
-        setIsModal(true);
+        setIsModal(true)
     }
-
+    
     const renderDetails = () => {
         if (orderFailed) {
             return (
@@ -75,11 +74,6 @@ const ConstructorTotal: FC<TConstructorTotal> = ({ bun, items }): ReactElement =
         dispatch(clearConstructor());
     }
 
-    const renderModal = () => {
-
-        return renderDetails()
-    }
-
     return (
         <>
             <div className={ styles.btnBlock }>
@@ -95,7 +89,7 @@ const ConstructorTotal: FC<TConstructorTotal> = ({ bun, items }): ReactElement =
                 </Button>
             </div>
 
-            { isModal && renderModal() }
+            { !orderRequest && isModal && renderDetails() }
         </>
     );
 };

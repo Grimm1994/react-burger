@@ -1,15 +1,30 @@
-import React, { FC, ReactElement } from 'react';
+import React, { FC, Fragment, ReactElement } from 'react';
 import styles from "./feed-order-list.module.css";
 import FeedOrderCard from "./feed-order-card/FeedOrderCard";
+import { useSelector } from "../../services/hooks";
+import { TWsFeedOrder } from "../../utils/types";
 
 const FeedOrderList: FC = (): ReactElement => {
+    const { orders, wsConnected, success } = useSelector(store => store.feed);
+
     return (
-        <div className={styles.container}>
-            <h1 className={ `text text_type_main-large mb-5 ${ styles.title }` }>Лента заказов</h1>
-            <div className={styles.wrapper}>
-                <FeedOrderCard/>
-            </div>
-        </div>
+        <>
+            { wsConnected && success ? (
+                <div className={ styles.wrapper }>
+                    { orders
+                        ? orders.map(( order: TWsFeedOrder ) => (
+                            <Fragment key={ order._id }>
+                                <FeedOrderCard order={ order }/>
+                            </Fragment>
+                        ))
+                        : <div>Здесь пока пусто</div>
+                    }
+                </div>
+            ) : (
+                <div>Загрузка...</div>
+            ) }
+
+        </>
     );
 };
 
