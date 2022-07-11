@@ -8,11 +8,11 @@
 }
 
 .wrapperInner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    justify-content: space-between;
 }
 
-.numberDone {
+.done .number {
     color: #00CCCC;
 }
 
