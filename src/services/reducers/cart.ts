@@ -9,13 +9,13 @@ import {
 } from "../actions/cart";
 import { TUniqueIngredient } from "../../utils/types";
 
-type TCartState = {
+export type TCartState = {
     totalSum: number,
     items: ReadonlyArray<TUniqueIngredient>,
     bun: TUniqueIngredient
 }
 
-const initialState: TCartState = {
+export const initialState: TCartState = {
     totalSum: 0,
     items: [],
     bun: {} as TUniqueIngredient

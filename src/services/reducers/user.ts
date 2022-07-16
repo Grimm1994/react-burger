@@ -10,14 +10,14 @@ import {
 } from "../actions/user";
 import { TUserData } from "../../utils/types";
 
-type TUserState = {
+export type TUserState = {
     user: TUserData,
     loading: boolean,
     loginErrorMessage: string,
     registerErrorMessage: string
 }
 
-const initialState: TUserState = {
+export const initialState: TUserState = {
     user: null as any,
     loading: false,
     loginErrorMessage: "",

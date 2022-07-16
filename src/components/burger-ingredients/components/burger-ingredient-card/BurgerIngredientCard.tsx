@@ -7,12 +7,12 @@ import { setCurrentIngredient } from "../../../../services/actions/ingredients";
 import { useDrag } from "react-dnd";
 import { useHistory, useLocation } from "react-router-dom";
 
-const BurgerIngredientCard: FC<{ item: TIngredient }> = ({ item }) => {
+const BurgerIngredientCard: FC<{ item: TIngredient }> = ( { item } ) => {
     const dispatch = useDispatch();
     const history = useHistory();
     let location = useLocation();
 
-    const constructorItems = useSelector((store) => [store.cart.bun, store.cart.bun, ...store.cart.items]);
+    const constructorItems = useSelector(( store ) => [store.cart.bun, store.cart.bun, ...store.cart.items]);
 
 
     const count: number = constructorItems.filter(constructorItem => constructorItem._id === item._id).length;
@@ -31,9 +31,31 @@ const BurgerIngredientCard: FC<{ item: TIngredient }> = ({ item }) => {
         dispatch(setCurrentIngredient(item));
     }
 
+
+    const getTestClass = (): string => {
+        switch (item.type) {
+            case "bun": {
+                return "drag-element-bun"
+            }
+
+            case "main": {
+                return "drag-element-main"
+            }
+
+            case "sauce": {
+                return "drag-element-sauce"
+            }
+
+            default: {
+                return "";
+            }
+        }
+    }
+
     return (
         <>
             <div
+                data-test={ getTestClass() }
                 className={ `${ styles.item } mb-8` }
                 key={ item._id }
                 onClick={ openModal }

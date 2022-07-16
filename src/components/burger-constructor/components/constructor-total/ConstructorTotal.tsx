@@ -81,8 +81,8 @@ const ConstructorTotal: FC<TConstructorTotal> = ({ bun, items }): ReactElement =
                     <span className="text text_type_digits-medium mr-2">{ totalSum }</span>
                     <CurrencyIcon type="primary"/>
                 </div>
-                <Button type="primary" size="large" onClick={ createNewOrder }>
-                    <div className={ styles.btnInner }>
+                <Button name="test-order-button" type="primary" size="large" onClick={ createNewOrder }>
+                    <div data-test="order-button" className={ styles.btnInner }>
                         { orderRequest && <TailSpin wrapperClass={ styles.spinner } color="#fff"/> }
                         Оформить заказ
                     </div>

@@ -11,7 +11,7 @@ type TOrderState = {
     order: TOrder
 }
 
-const initialState: TOrderState = {
+export const initialState: TOrderState = {
     orderRequest: false,
     orderFailed: false,
     order: {} as TOrder,
