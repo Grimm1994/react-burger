@@ -8,14 +8,14 @@ import {
 import { TIngredient } from "../../utils/types";
 
 
-type TIngredientState = {
+export type TIngredientState = {
     items: ReadonlyArray<TIngredient>,
     itemsRequest: boolean,
     itemsFailed: boolean,
     item: TIngredient;
 }
 
-const initialState: TIngredientState = {
+export const initialState: TIngredientState = {
     items: [],
     itemsRequest: false,
     itemsFailed: false,
@@ -35,7 +35,7 @@ export const ingredientReducer = (state = initialState, action: TIngredientsActi
             return {
                 ...state,
                 itemsRequest: false,
-                itemsFailed: false,
+                itemsFailed: true,
             }
         }
 

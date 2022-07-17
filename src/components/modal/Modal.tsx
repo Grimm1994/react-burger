@@ -28,8 +28,8 @@ const Modal: FC<TModal> = ( { onClose, children } ): ReactElement => {
         (
             <>
                 <ModalOverlay onClose={ onClose }/>
-                <div className={ `${ styles.modal } pt-10 pl-10 pb-15 pr-10` }>
-                    <div className={ styles.close } onClick={ onClose }>
+                <div className={ `${ styles.modal } pt-10 pl-10 pb-15 pr-10` } data-test="modal">
+                    <div data-test="close" className={ styles.close } onClick={ onClose }>
                         <CloseIcon type="primary"/>
                     </div>
                     { children }

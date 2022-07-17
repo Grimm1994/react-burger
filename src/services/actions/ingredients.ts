@@ -37,19 +37,19 @@ export type TIngredientsActions =
     | TSetCurrentIngredient
     | TUnsetCurrentIngredient
 
-const getIngredientsRequest = (): TGetIngredientsRequest => {
+export const getIngredientsRequest = (): TGetIngredientsRequest => {
     return {
         type: GET_INGREDIENTS_REQUEST
     }
 }
 
-const getIngredientsFailed = (): TGetIngredientsFailed => {
+export const getIngredientsFailed = (): TGetIngredientsFailed => {
     return {
         type: GET_INGREDIENTS_FAILED
     }
 }
 
-const getIngredientsSuccess = ( items: TIngredient[] ): TGetIngredientsSuccess => {
+export const getIngredientsSuccess = ( items: TIngredient[] ): TGetIngredientsSuccess => {
     return {
         type: GET_INGREDIENTS_SUCCESS,
         items

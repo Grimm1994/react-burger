@@ -9,7 +9,7 @@ const IngredientsDetails: FC = (): ReactElement => {
         <article className={ styles.card }>
             <h3 className={`${styles.title} text text_type_main-large`}>Детали ингредиента</h3>
             <img src={ item.image } alt={ item.name } className={ `${ styles.img } mb-4` }/>
-            <p className="text text_type_main-medium mb-8">{ item.name }</p>
+            <p className="text text_type_main-medium mb-8" data-test="name">{ item.name }</p>
             <ul className={ styles.container }>
                 <li className={ `${ styles.text } text text_type_main-default text_color_inactive` }>
                     Калории, ккал <span className="text text_type_digits-default">{ item.calories }</span>

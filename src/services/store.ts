@@ -24,7 +24,7 @@ const wsActions = {
     onMessage: WS_GET_MESSAGE
 }
 
-const wsUrl = "wss://norma.nomoreparties.space/orders";
+export const wsUrl = "wss://norma.nomoreparties.space/orders";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const enhancer = composeEnhancers(applyMiddleware(thunk, socketMiddleware(wsUrl, wsActions)));

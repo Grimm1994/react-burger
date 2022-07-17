@@ -7,7 +7,7 @@ import {
     WS_GET_MESSAGE
 } from "../actions/ws";
 
-const initialState: TFeedState = {
+export const initialState: TFeedState = {
     wsConnected: false,
     success: false,
     total: 0,

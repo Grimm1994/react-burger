@@ -24,19 +24,19 @@ export type TOrderActions =
     | TGetOrderNumberFailed
     | TGetOrderNumberSuccess
 
-const getOrderNumberRequest = (): TGetOrderNumberRequest => {
+export const getOrderNumberRequest = (): TGetOrderNumberRequest => {
     return {
         type: GET_ORDER_NUMBER_REQUEST
     }
 }
 
-const getOrderNumberFailed = (): TGetOrderNumberFailed => {
+export const getOrderNumberFailed = (): TGetOrderNumberFailed => {
     return {
         type: GET_ORDER_NUMBER_FAILED
     }
 }
 
-const getOrderNumberSuccess = ( number: number ): TGetOrderNumberSuccess => {
+export const getOrderNumberSuccess = ( number: number ): TGetOrderNumberSuccess => {
     return {
         type: GET_ORDER_NUMBER_SUCCESS,
         number

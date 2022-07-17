@@ -97,7 +97,7 @@ const BurgerConstructor: FC = (): ReactElement => {
     }
 
     return (
-        <div className={ styles.constructorWrapper } ref={ dropTarget } style={ { opacity } }>
+        <div className={ styles.constructorWrapper } data-test="drop-target" ref={ dropTarget } style={ { opacity } }>
             { renderConstructor() }
         </div>
     );

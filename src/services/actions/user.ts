@@ -59,54 +59,54 @@ export type TUserActions =
     | TSignInFailed
     | TSignInSuccess
 
-const logoutAction = (): TLogoutAction => {
+export const logoutAction = (): TLogoutAction => {
     return {
         type: LOGOUT
     }
 }
 
-const setLoading = (): TSetLoading => {
+export const setLoading = (): TSetLoading => {
     return {
         type: SET_LOADING
     }
 }
 
-const getUserSuccess = ( user: TUserData ): TGetUserSuccess => {
+export const getUserSuccess = ( user: TUserData ): TGetUserSuccess => {
     return {
         type: GET_USER_SUCCESS,
         user
     }
 }
 
-const updateUserSuccess = ( user: TUserData ): TUpdateUserSuccess => {
+export const updateUserSuccess = ( user: TUserData ): TUpdateUserSuccess => {
     return {
         type: UPDATE_USER_SUCCESS,
         user
     }
 }
 
-const createUserSuccess = ( user: TUserData ): TCreateUserSuccess => {
+export const createUserSuccess = ( user: TUserData ): TCreateUserSuccess => {
     return {
         type: CREATE_USER_SUCCESS,
         user
     }
 }
 
-const createUserFailed = ( message: string ): TCreateUserFailed => {
+export const createUserFailed = ( message: string ): TCreateUserFailed => {
     return {
         type: CREATE_USER_FAILED,
         message
     }
 }
 
-const signInFailed = ( message: string ): TSignInFailed => {
+export const signInFailed = ( message: string ): TSignInFailed => {
     return {
         type: SIGN_IN_FAILED,
         message
     }
 }
 
-const signInSuccess = ( user: TUserData ): TSignInSuccess => {
+export const signInSuccess = ( user: TUserData ): TSignInSuccess => {
     return {
         type: SIGN_IN_SUCCESS,
         user
