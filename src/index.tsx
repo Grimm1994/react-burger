@@ -12,7 +12,7 @@ const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
-    <Router basename="/react-burger">
+    <Router>
         <React.StrictMode>
             <Provider store={ store }>
                 <DndProvider backend={ HTML5Backend }>
